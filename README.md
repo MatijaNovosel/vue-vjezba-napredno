@@ -15,6 +15,14 @@ Preporuča se koristiti [Axios](https://github.com/axios/axios) za pravljenje HT
 
 ## ✏️ Zadaci
 
+### 🌍 Općenito
+
+- Smisleno organizirati direktorije aplikacije, npr. za servise, modele, store itd.
+- Koristiti smisleni layout za aplikaciju uključujući drawer, navigaciju i footer
+- Napraviti ekrane za registraciju i prijavu korisnika, kao i gumb za odjavu na navigaciji
+- Neautorizirane/neautentificirane korisnike redirectati na odgovarajuću stranicu
+- Implementirati autentifikaciju koristeći [navigation guardove](https://router.vuejs.org/guide/advanced/navigation-guards.html) i provjeru JWT-a iz stora
+- Implementirati autorizaciju stranica koristeći već spomenute navigation guardove i store, skrivajući određene akcije na aplikaciji ako korisnik nema prava na njih
 - Segmentirati pozive na API kroz klase ili objekte s metodama za određene rute koristeći Axios, npr. `authService.ts`
 
 ```typescript
@@ -24,15 +32,6 @@ class AuthService {
   }
 }
 ```
-
-### 🌍 Općenito
-
-- Smisleno organizirati direktorije aplikacije, npr. za servise, modele, store itd.
-- Koristiti smisleni layout za aplikaciju uključujući drawer, navigaciju i footer
-- Napraviti ekrane za registraciju i prijavu korisnika, kao i gumb za odjavu na navigaciji
-- Neautorizirane/neautentificirane korisnike redirectati na odgovarajuću stranicu
-- Implementirati autentifikaciju koristeći [navigation guardove](https://router.vuejs.org/guide/advanced/navigation-guards.html) i provjeru JWT-a iz stora
-- Implementirati autorizaciju stranica koristeći već spomenute navigation guardove i store, skrivajući određene akcije na aplikaciji ako korisnik nema prava na njih
 
 ### 👤 Dio za goste/korisnike
 
