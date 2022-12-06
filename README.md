@@ -9,9 +9,9 @@
 
 Nastavno na [prošlu Frontend vježbu](https://github.com/MatijaNovosel/vue-vjezba) i [backend vježbu](https://github.com/mosurovicdanilo/EKupi.King) potrebno je napraviti novi Vue projekt nalik na prvi, ali sa stvarnim podacima i to onima s novostvorenog backenda.
 
-Projekt je moguće gledati sa strane gosta koji samo gleda popis proizvoda, korisnika koji je prijavljen i može kupiti proizvode i praviti narudžbe, a zatim i kao administrator koji može uređivati proizvode ponuđene na stranici.
+Projekt je moguće gledati sa strane **gosta** koji samo gleda popis proizvoda, **korisnika** koji je prijavljen i može kupiti proizvode i praviti narudžbe, a zatim i kao **administrator** koji može uređivati proizvode ponuđene na stranici.
 
-Preporuča se koristiti [Axios](https://github.com/axios/axios) za pravljenje HTTP requestova.
+Preporuča se koristiti [Axios](https://github.com/axios/axios) za pravljenje HTTP requestova. Sve se radi na `dev` branchu.
 
 ## ✏️ Zadaci
 
