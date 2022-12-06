@@ -24,12 +24,19 @@ class AuthService {
   }
 }
 ```
-### 👤 Dio za goste/korisnike
 
+### 🌍 Općenito
+
+- Smisleno organizirati direktorije aplikacije, npr. za servise, modele, store itd.
+- Koristiti smisleni layout za aplikaciju uključujući drawer, navigaciju i footer
 - Napraviti ekrane za registraciju i prijavu korisnika, kao i gumb za odjavu na navigaciji
+- Neautorizirane/neautentificirane korisnike redirectati na odgovarajuću stranicu
 - Implementirati autentifikaciju koristeći [navigation guardove](https://router.vuejs.org/guide/advanced/navigation-guards.html) i provjeru JWT-a iz stora
 - Implementirati autorizaciju stranica koristeći već spomenute navigation guardove i store, skrivajući određene akcije na aplikaciji ako korisnik nema prava na njih
-- Napraviti stranicu za prikaz proizvoda s korisničke/gost strane, organiziranih u obliku grida s karticama koristeći Vuetify [Card](https://vuetifyjs.com/en/components/cards/) komponentu i uz to napraviti paginaciju s ograničenim brojem proizvoda po stranici paginacije koristeći Vuetify [Pagination](https://vuetifyjs.com/en/components/paginations/) komponentu
+
+### 👤 Dio za goste/korisnike
+
+- Napraviti stranicu za prikaz proizvoda organiziranih u obliku grida s karticama koristeći Vuetify [Card](https://vuetifyjs.com/en/components/cards/) komponentu i uz to napraviti paginaciju s ograničenim brojem proizvoda po stranici paginacije koristeći Vuetify [Pagination](https://vuetifyjs.com/en/components/paginations/) komponentu
 - Svaki proizvod ima svoju stranicu za detalje gdje se mogu vidjeti dodatne informacije o njemu, kao i njegovi podproizvodi
 - Proizvod se može dodati u košaricu ili sa stranice detalja ili s grida proizvoda, mora biti naznačeno da je taj proizvod u košarici na navigaciji i na samoj kartici proizvoda kao i količina i iznos
 - Neprijavljeni korisnici ne mogu dodavati proizvode u košaricu
