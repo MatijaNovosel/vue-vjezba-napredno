@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/36193643/205978239-f29e0f55-a561-4b90-931c-066045662f9b.png" />
+  <img src="https://user-images.githubusercontent.com/36193643/206003797-9eb34a63-7690-46e0-9245-72abb06b32a9.png" />
 </div>
 
 <h1 align=center>Napredna Vue vježba</h1>
