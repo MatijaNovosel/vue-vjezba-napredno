@@ -1,7 +1,8 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex flex-gap-20">
+    <v-app-bar app color="primary" dark right>
+      <v-spacer />
+      <div class="d-flex flex-gap-20 justify-end">
         <v-btn elevation="2" class="btn" :to="RouteNames.Login"> Log In </v-btn>
         <v-btn elevation="2" class="btn"> Register </v-btn>
         <v-btn elevation="2" class="btn"> Logout </v-btn>
