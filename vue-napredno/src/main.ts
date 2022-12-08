@@ -3,9 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
 import { createPinia, PiniaVuePlugin } from "pinia";
-
-import "@/styles/global.scss";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
+import "@/styles/global.scss";
 
 Vue.component("ValidationProvider", ValidationProvider);
 Vue.component("ValidationObserver", ValidationObserver);
@@ -15,10 +15,11 @@ Vue.config.productionTip = false;
 Vue.use(PiniaVuePlugin);
 
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 new Vue({
-  router,
   pinia,
+  router,
   vuetify,
   render: (h) => h(App)
 }).$mount("#app");

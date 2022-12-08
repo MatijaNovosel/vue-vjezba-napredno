@@ -3,10 +3,23 @@
     <v-app-bar app color="primary" dark right>
       <v-spacer />
       <div class="d-flex flex-gap-20 justify-end">
-        <v-btn elevation="2" class="btn" :to="RouteNames.Login"> Log In </v-btn>
-        <v-btn elevation="2" class="btn"> Register </v-btn>
-        <v-btn elevation="2" class="btn"> Logout </v-btn>
-        <v-btn elevation="2" class="btn" @click="store.drawerState = !store.drawerState">
+        <v-btn
+          v-if="userStore.isLoggedIn"
+          elevation="2"
+          class="btn"
+          @click="userService.logoutUser"
+        >
+          Logout
+        </v-btn>
+        <template v-else>
+          <v-btn elevation="2" class="btn" :to="RouteNames.Login"> Log In </v-btn>
+          <v-btn elevation="2" class="btn"> Register </v-btn>
+        </template>
+        <v-btn
+          elevation="2"
+          class="btn"
+          @click="productStore.drawerState = !productStore.drawerState"
+        >
           Toggle
         </v-btn>
       </div>
@@ -20,17 +33,24 @@
 
 <script lang="ts">
 import Vue, { defineComponent, ref } from "vue";
+import { RouterView } from "vue-router";
+import { VApp, VAppBar, VSpacer, VBtn, VMain } from "vuetify/lib";
 import drawer from "./components/navigation/drawer.vue";
+import { getService, Types } from "./di-container";
+import { IUserService } from "./interfaces/userService";
 import RouteNames from "./router/route-names";
-import { EKupiStore } from "./store";
+import { ProductStore } from "./store/product-store";
+import { UserStore } from "./store/user-store";
 
 export default defineComponent({
   name: "App",
   components: { drawer },
   setup() {
-    const store = EKupiStore();
+    const productStore = ProductStore();
+    const userStore = UserStore();
+    const userService = getService<IUserService>(Types.UserService);
 
-    return { store, RouteNames };
+    return { productStore, userService, userStore, RouteNames };
   }
 });
 </script>
