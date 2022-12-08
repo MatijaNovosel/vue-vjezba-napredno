@@ -2,10 +2,20 @@
   <v-navigation-drawer v-model="productStore.drawerState" absolute temporary>
     <v-divider></v-divider>
 
-    <v-list dense>
+    <v-list>
       <v-list-item link :to="RouteNames.Products">
         <v-list-item-content>
           <v-list-item-title>Products</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item link :to="RouteNames.ProductList">
+        <v-list-item-content>
+          <v-list-item-title>Product List</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item link :to="RouteNames.Statistics">
+        <v-list-item-content>
+          <v-list-item-title>Statistics</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>

@@ -5,6 +5,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import RouteNames from "./route-names";
 import ProductListView from "@/views/admin/products/ProductListView.vue";
+import StatisticsView from "@/views/admin/statistics/StatisticsView.vue";
 
 Vue.use(VueRouter);
 
@@ -12,7 +13,8 @@ const routes: RouteConfig[] = [
   { path: "/", redirect: "/login" },
   { path: "/login", name: RouteNames.Login, component: LoginView },
   { path: "/products", name: RouteNames.Products, component: ProductView },
-  { path: "/product-list", name: RouteNames.ProductList, component: ProductListView }
+  { path: "/product-list", name: RouteNames.ProductList, component: ProductListView },
+  { path: "/statistics", name: RouteNames.Statistics, component: StatisticsView }
 ];
 
 const router = new VueRouter({

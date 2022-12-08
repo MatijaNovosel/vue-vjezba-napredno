@@ -12,7 +12,12 @@
           :items="state.items"
           :server-items-length="state.totalItems"
           v-on:pagination="getProductList"
-        ></v-data-table>
+        >
+          <template v-slot:item.actions="{ item }">
+            <v-icon small class="mr-2"> mdi-pencil </v-icon>
+            <v-icon small> mdi-delete </v-icon>
+          </template></v-data-table
+        >
       </v-card-text>
     </v-card>
   </div>
@@ -31,7 +36,8 @@ export default defineComponent({
       { text: "Category", value: "categoryName" },
       { text: "Units In Stock", value: "unitsInStock" },
       { text: "Unit Price", value: "unitPrice" },
-      { text: "Subproducts", value: "subProducts" }
+      { text: "Subproducts", value: "subProducts" },
+      { text: "Actions", value: "actions" }
     ];
 
     const state = reactive({
