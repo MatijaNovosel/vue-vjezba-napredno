@@ -6,12 +6,14 @@ import VueRouter, { RouteConfig } from "vue-router";
 import RouteNames from "./route-names";
 import ProductListView from "@/views/admin/products/ProductListView.vue";
 import StatisticsView from "@/views/admin/statistics/StatisticsView.vue";
+import RegisterView from "@/views/auth/RegisterView.vue";
 
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
-  { path: "/", redirect: "/login" },
+  { path: "/", redirect: "/products" },
   { path: "/login", name: RouteNames.Login, component: LoginView },
+  { path: "/register", name: RouteNames.Register, component: RegisterView },
   { path: "/products", name: RouteNames.Products, component: ProductView },
   { path: "/product-list", name: RouteNames.ProductList, component: ProductListView },
   { path: "/statistics", name: RouteNames.Statistics, component: StatisticsView }

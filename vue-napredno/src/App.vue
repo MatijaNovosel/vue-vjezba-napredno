@@ -13,7 +13,7 @@
         </v-btn>
         <template v-else>
           <v-btn elevation="2" class="btn" :to="RouteNames.Login"> Log In </v-btn>
-          <v-btn elevation="2" class="btn"> Register </v-btn>
+          <v-btn elevation="2" class="btn" :to="RouteNames.Register"> Register </v-btn>
         </template>
         <v-btn
           elevation="2"

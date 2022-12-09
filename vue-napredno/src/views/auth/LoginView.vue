@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-center">
+  <div class="d-flex justify-center pa-6">
     <v-card min-width="400">
       <v-card-title>
         <span class="headline font-weight-bold">Login</span>
@@ -61,7 +61,6 @@ export default defineComponent({
         password: state.formData.password
       };
       await userService.loginUser(loginModel);
-      
     }
 
     return { state, loginForm, login };
