@@ -11,7 +11,7 @@
           :headers="headers"
           :items="state.items"
           :server-items-length="state.totalItems"
-          v-on:pagination="getProductList"
+          @pagination="getProductList"
         >
           <template v-slot:item.actions="{ item }">
             <v-icon small class="mr-2"> mdi-pencil </v-icon>

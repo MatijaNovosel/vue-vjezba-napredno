@@ -39,7 +39,8 @@ import { required } from "vee-validate/dist/rules";
 import { extend } from "vee-validate";
 import { getService, Types } from "@/di-container";
 import { IUserService } from "@/interfaces/userService";
-import { LoginCustomerCommand } from "@/models/login-model";
+import { LoginCustomerCommand } from "@/models/commands/login-model";
+
 extend("required", required);
 
 export default defineComponent({

@@ -55,7 +55,8 @@ import { required } from "vee-validate/dist/rules";
 import { extend } from "vee-validate";
 import { getService, Types } from "@/di-container";
 import { IUserService } from "@/interfaces/userService";
-import { LoginCustomerCommand } from "@/models/login-model";
+import { RegisterCustomerCommand } from "@/models/commands/register-model";
+
 extend("required", required);
 
 export default defineComponent({
@@ -74,11 +75,13 @@ export default defineComponent({
     const registerForm = ref(null);
 
     async function register() {
-      let loginModel: LoginCustomerCommand = {
+      let registerModel: RegisterCustomerCommand = {
         username: state.formData.username,
-        password: state.formData.password
+        password: state.formData.password,
+        firstName: state.formData.firstName,
+        familyName: state.formData.familyName,
       };
-      await userService.loginUser(loginModel);
+      await userService.registerUser(registerModel);
     }
 
     return { state, registerForm, register };
