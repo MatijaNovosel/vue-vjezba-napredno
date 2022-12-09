@@ -1,3 +1,4 @@
+import { UserListQueryResponse } from './../models/query-responses/user-list-query-response';
 import { UserStore } from "./../store/user-store";
 import { injectable } from "inversify";
 import { IUserService } from "../interfaces/userService";
@@ -34,6 +35,11 @@ export default class UserService implements IUserService {
     if (result.status === 200) {
       router.push(RouteNames.Products)
     }
+    return result.data;
+  }
+
+  async getUsers(pageNumber: number, pageSize: number): Promise<UserListQueryResponse> {
+    const result = await httpClient.get("/Account/users/" + pageNumber + "/" + pageSize);
     return result.data;
   }
 }

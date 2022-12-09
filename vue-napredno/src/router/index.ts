@@ -7,6 +7,7 @@ import RouteNames from "./route-names";
 import ProductListView from "@/views/admin/products/ProductListView.vue";
 import StatisticsView from "@/views/admin/statistics/StatisticsView.vue";
 import RegisterView from "@/views/auth/RegisterView.vue";
+import UserListView from "@/views/admin/users/UserListView.vue";
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,7 @@ const routes: RouteConfig[] = [
   { path: "/register", name: RouteNames.Register, component: RegisterView },
   { path: "/products", name: RouteNames.Products, component: ProductView },
   { path: "/product-list", name: RouteNames.ProductList, component: ProductListView },
+  { path: "/user-list", name: RouteNames.UserList, component: UserListView },
   { path: "/statistics", name: RouteNames.Statistics, component: StatisticsView }
 ];
 
