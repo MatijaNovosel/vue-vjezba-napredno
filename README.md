@@ -39,7 +39,7 @@ class AuthService {
 - Svaki proizvod ima svoju stranicu za detalje gdje se mogu vidjeti dodatne informacije o njemu, kao i njegovi podproizvodi
 - Proizvod se može dodati u košaricu ili sa stranice detalja ili s grida proizvoda, mora biti naznačeno da je taj proizvod u košarici na navigaciji i na samoj kartici proizvoda kao i količina i iznos
 - Neprijavljeni korisnici ne mogu dodavati proizvode u košaricu
-- Na košarici mora postojati gumb za kupnju proizvoda koji ga šalja na check-out screen
+- Na košarici mora postojati gumb za kupnju proizvoda koji ga šalje na check-out screen
 - Korisnik mora imati stranicu za uređivanje profila, na istoj stranici mora biti pregled njegovih narudžbi
 
 ### 👮🏽‍♂️ Administratorski dio
