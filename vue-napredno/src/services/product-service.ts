@@ -1,3 +1,4 @@
+import { MostSoldProductsQueryResponse } from "./../models/query-responses/most-sold-products-query-response";
 import { injectable } from "inversify";
 import { IProductService } from "../interfaces/productService";
 import { ProductQueryResponse } from "../models/query-responses/product-query-response";
@@ -13,6 +14,11 @@ export default class ProductService implements IProductService {
 
   async getProductList(pageNumber: number, pageSize: number): Promise<ProductListQueryResponse> {
     const result = await httpClient.get("/Products/list/" + pageNumber + "/" + pageSize);
+    return result.data;
+  }
+
+  async getMostSoldProducts(): Promise<MostSoldProductsQueryResponse[]> {
+    const result = await httpClient.get("/Orders/mostSoldProducts");
     return result.data;
   }
 }
