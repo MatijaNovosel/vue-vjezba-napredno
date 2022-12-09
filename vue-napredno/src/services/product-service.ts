@@ -4,9 +4,12 @@ import { IProductService } from "../interfaces/productService";
 import { ProductQueryResponse } from "../models/query-responses/product-query-response";
 import httpClient from "@/clients/httpClient";
 import { ProductListQueryResponse } from "@/models/query-responses/product-list-query-response";
+import { ProductsSoldPerMonthQueryResponse } from "@/models/query-responses/products-sold-per-month-query-response";
+import { CustomerExpenditureQueryResponse } from "@/models/query-responses/customer-expenditure-query";
 
 @injectable()
 export default class ProductService implements IProductService {
+  
   async getProducts(): Promise<ProductQueryResponse[]> {
     const result = await httpClient.get("/Products/true");
     return result.data;
@@ -19,6 +22,16 @@ export default class ProductService implements IProductService {
 
   async getMostSoldProducts(): Promise<MostSoldProductsQueryResponse[]> {
     const result = await httpClient.get("/Orders/mostSoldProducts");
+    return result.data;
+  }
+
+  async getProductsSoldPerMonth(): Promise<ProductsSoldPerMonthQueryResponse[]> {
+    const result = await httpClient.get("/Orders/productSalesPerMonth");
+    return result.data;
+  }
+
+  async getCustomerExpenditure(): Promise<CustomerExpenditureQueryResponse[]> {
+    const result = await httpClient.get("/Orders/customerExpenditure");
     return result.data;
   }
 }
