@@ -8,6 +8,7 @@ import ProductListView from "@/views/admin/products/ProductListView.vue";
 import StatisticsView from "@/views/admin/statistics/StatisticsView.vue";
 import RegisterView from "@/views/auth/RegisterView.vue";
 import UserListView from "@/views/admin/users/UserListView.vue";
+import ProfileView from "@/views/user/ProfileView.vue";
 
 Vue.use(VueRouter);
 
@@ -18,7 +19,8 @@ const routes: RouteConfig[] = [
   { path: "/products", name: RouteNames.Products, component: ProductView },
   { path: "/product-list", name: RouteNames.ProductList, component: ProductListView },
   { path: "/user-list", name: RouteNames.UserList, component: UserListView },
-  { path: "/statistics", name: RouteNames.Statistics, component: StatisticsView }
+  { path: "/statistics", name: RouteNames.Statistics, component: StatisticsView },
+  { path: "/profile/:id", name: RouteNames.Profile, component: ProfileView, props: true }
 ];
 
 const router = new VueRouter({
@@ -27,10 +29,11 @@ const router = new VueRouter({
   routes
 });
 
-/*router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   const userStore = UserStore();
-  if (to.name !== RouteNames.Login && !userStore.isLoggedIn) next({ name: RouteNames.Login });
-  else next();
-});*/
+  if (to.name !== RouteNames.Login && to.name !== RouteNames.Products && !userStore.isLoggedIn) {
+    next({ name: RouteNames.Login });
+  } else next();
+});
 
 export default router;

@@ -1,4 +1,7 @@
-import { UserListQueryResponse } from "./../models/query-responses/user-list-query-response";
+import {
+  UserDTO,
+  UserListQueryResponse
+} from "./../models/query-responses/user-list-query-response";
 import { UserStore } from "./../store/user-store";
 import { injectable } from "inversify";
 import { IUserService } from "../interfaces/userService";
@@ -12,11 +15,18 @@ import RouteNames from "@/router/route-names";
 export default class UserService implements IUserService {
   async loginUser(loginModel: LoginCustomerCommand): Promise<void> {
     const result = await httpClient.post("/Account/login", loginModel);
+
     if (result.status === 200) {
       const userStore = UserStore();
       userStore.isLoggedIn = true;
       userStore.token = result.data;
-      router.push(RouteNames.Products);
+
+      const user = await httpClient.get("/Account/user");
+      if (user.status === 200) {
+        userStore.currentUser = user.data;
+        debugger;
+        router.push(RouteNames.Products);
+      }
     }
   }
 
@@ -26,6 +36,7 @@ export default class UserService implements IUserService {
       const userStore = UserStore();
       userStore.isLoggedIn = false;
       userStore.token = "";
+      userStore.currentUser = null;
       router.push(RouteNames.Login);
     }
   }
@@ -40,6 +51,11 @@ export default class UserService implements IUserService {
 
   async getUsers(pageNumber: number, pageSize: number): Promise<UserListQueryResponse> {
     const result = await httpClient.get("/Account/users/" + pageNumber + "/" + pageSize);
+    return result.data;
+  }
+
+  async getUser(userId: string): Promise<UserDTO> {
+    const result = await httpClient.get("/Account/user/" + userId);
     return result.data;
   }
 }

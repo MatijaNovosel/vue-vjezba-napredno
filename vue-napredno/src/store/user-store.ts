@@ -1,6 +1,7 @@
+import { UserDTO } from "./../models/query-responses/user-list-query-response";
 import { ProductQueryResponse } from "@/models/query-responses/product-query-response";
 import { defineStore } from "pinia";
-import { reactive, ref } from "vue";
+import { reactive, Ref, ref } from "vue";
 import { getCookie, setCookie } from "typescript-cookie";
 
 export const UserStore = defineStore(
@@ -8,12 +9,13 @@ export const UserStore = defineStore(
   () => {
     const isLoggedIn = ref(false);
     const token = ref("");
-    return { isLoggedIn, token };
+    const currentUser: Ref<UserDTO | null> = ref(null);
+    return { isLoggedIn, token, currentUser };
   },
   {
     persist: {
       storage: localStorage,
-      paths: ["isLoggedIn", "token"]
+      paths: ["isLoggedIn", "token", "currentUser"]
     }
   }
 );

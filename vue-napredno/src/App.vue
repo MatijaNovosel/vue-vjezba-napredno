@@ -3,14 +3,11 @@
     <v-app-bar app color="primary" dark right>
       <v-spacer />
       <div class="d-flex flex-gap-20 justify-end">
-        <v-btn
-          v-if="userStore.isLoggedIn"
-          elevation="2"
-          class="btn"
-          @click="userService.logoutUser"
-        >
-          Logout
-        </v-btn>
+        <template v-if="userStore.isLoggedIn">
+          <v-btn elevation="2" class="btn" @click="userService.logoutUser"> Logout </v-btn>
+          <v-btn elevation="2" class="btn" :to="{ name: RouteNames.Profile, params: { id: userStore.currentUser?.id }}"> Profile </v-btn>
+        </template>
+
         <template v-else>
           <v-btn elevation="2" class="btn" :to="RouteNames.Login"> Log In </v-btn>
           <v-btn elevation="2" class="btn" :to="RouteNames.Register"> Register </v-btn>
@@ -20,7 +17,7 @@
           class="btn"
           @click="productStore.drawerState = !productStore.drawerState"
         >
-          Toggle
+          Menu
         </v-btn>
       </div>
     </v-app-bar>

@@ -6,4 +6,5 @@ export default class RouteNames {
   static readonly ProductList = "product-list";
   static readonly UserList = "user-list";
   static readonly Statistics = "statistics";
+  static readonly Profile = "profile";
 }
