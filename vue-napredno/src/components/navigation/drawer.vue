@@ -15,7 +15,7 @@
       </v-list-item>
       <v-list-item link :to="RouteNames.UserList">
         <v-list-item-content>
-          <v-list-item-title>User list</v-list-item-title>
+          <v-list-item-title>User List</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link :to="RouteNames.Statistics">

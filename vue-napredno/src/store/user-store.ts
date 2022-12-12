@@ -3,8 +3,17 @@ import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 import { getCookie, setCookie } from "typescript-cookie";
 
-export const UserStore = defineStore("UserStore", () => {
-  const isLoggedIn = ref(getCookie("authCookie") !== undefined && getCookie("authCookie") !== "");
-
-  return { isLoggedIn };
-});
+export const UserStore = defineStore(
+  "UserStore",
+  () => {
+    const isLoggedIn = ref(false);
+    const token = ref("");
+    return { isLoggedIn, token };
+  },
+  {
+    persist: {
+      storage: localStorage,
+      paths: ["isLoggedIn", "token"]
+    }
+  }
+);
