@@ -12,6 +12,7 @@
           :items="state.items"
           :server-items-length="state.totalItems"
           @pagination="getProductList"
+          @click:row="openProfile"
         ></v-data-table>
       </v-card-text>
     </v-card>
@@ -22,6 +23,9 @@ import { getService, Types } from "@/di-container";
 import { IUserService } from "@/interfaces/userService";
 import { defineComponent, onMounted, reactive } from "vue";
 import { UserDTO } from "@/models/query-responses/user-list-query-response";
+import router from "@/router";
+import RouteNames from "@/router/route-names";
+import { VCard, VCardTitle, VCardText, VDataTable } from "vuetify/lib";
 
 export default defineComponent({
   setup() {
@@ -41,6 +45,10 @@ export default defineComponent({
       totalItems: 0
     });
 
+    function openProfile(user: UserDTO) {
+      router.push({ name: RouteNames.Profile, params: { id: user.id } });
+    }
+
     async function getProductList() {
       let data = await userService.getUsers(state.options.page, state.options.itemsPerPage);
       state.items = data.users;
@@ -50,7 +58,7 @@ export default defineComponent({
     onMounted(async () => {
       getProductList();
     });
-    return { headers, state, getProductList };
+    return { headers, state, getProductList, openProfile };
   }
 });
 </script>
