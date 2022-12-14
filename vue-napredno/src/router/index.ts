@@ -20,7 +20,7 @@ const routes: RouteConfig[] = [
   { path: "/product-list", name: RouteNames.ProductList, component: ProductListView },
   { path: "/user-list", name: RouteNames.UserList, component: UserListView },
   { path: "/statistics", name: RouteNames.Statistics, component: StatisticsView },
-  { path: "/profile/:id", name: RouteNames.Profile, component: ProfileView, props: true }
+  { path: "/profile-:id", name: RouteNames.Profile, component: ProfileView, props: true }
 ];
 
 const router = new VueRouter({

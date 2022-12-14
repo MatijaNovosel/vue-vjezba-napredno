@@ -54,7 +54,7 @@ import { defineComponent, reactive, ref } from "vue";
 import { required } from "vee-validate/dist/rules";
 import { extend } from "vee-validate";
 import { getService, Types } from "@/di-container";
-import { IUserService } from "@/interfaces/userService";
+import { IUserService } from "@/interfaces/iuser-service";
 import { RegisterCustomerCommand } from "@/models/commands/register-model";
 
 extend("required", required);
@@ -79,7 +79,7 @@ export default defineComponent({
         username: state.formData.username,
         password: state.formData.password,
         firstName: state.formData.firstName,
-        familyName: state.formData.familyName,
+        familyName: state.formData.familyName
       };
       await userService.registerUser(registerModel);
     }

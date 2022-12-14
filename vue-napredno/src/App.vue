@@ -5,7 +5,13 @@
       <div class="d-flex flex-gap-20 justify-end">
         <template v-if="userStore.isLoggedIn">
           <v-btn elevation="2" class="btn" @click="userService.logoutUser"> Logout </v-btn>
-          <v-btn elevation="2" class="btn" :to="{ name: RouteNames.Profile, params: { id: userStore.currentUser?.id }}"> Profile </v-btn>
+          <v-btn
+            elevation="2"
+            class="btn"
+            :to="{ name: RouteNames.Profile, params: { id: userStore.currentUser?.id } }"
+          >
+            Profile
+          </v-btn>
         </template>
 
         <template v-else>
@@ -34,7 +40,7 @@ import { RouterView } from "vue-router";
 import { VApp, VAppBar, VSpacer, VBtn, VMain } from "vuetify/lib";
 import drawer from "./components/navigation/drawer.vue";
 import { getService, Types } from "./di-container";
-import { IUserService } from "./interfaces/userService";
+import { IUserService } from "./interfaces/iuser-service";
 import RouteNames from "./router/route-names";
 import { ProductStore } from "./store/product-store";
 import { UserStore } from "./store/user-store";

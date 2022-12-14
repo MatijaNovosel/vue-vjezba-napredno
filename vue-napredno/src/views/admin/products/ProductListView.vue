@@ -24,7 +24,7 @@
 </template>
 <script lang="ts">
 import { getService, Types } from "@/di-container";
-import { IProductService } from "@/interfaces/productService";
+import { IProductService } from "@/interfaces/iproduct-service";
 import { defineComponent, onMounted, reactive } from "vue";
 import { ProductDTO } from "@/models/query-responses/product-list-query-response";
 
@@ -36,7 +36,6 @@ export default defineComponent({
       { text: "Category", value: "categoryName" },
       { text: "Units In Stock", value: "unitsInStock" },
       { text: "Unit Price", value: "unitPrice" },
-      { text: "Subproducts", value: "subProducts" },
       { text: "Actions", value: "actions" }
     ];
 

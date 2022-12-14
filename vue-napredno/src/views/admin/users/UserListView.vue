@@ -20,7 +20,7 @@
 </template>
 <script lang="ts">
 import { getService, Types } from "@/di-container";
-import { IUserService } from "@/interfaces/userService";
+import { IUserService } from "@/interfaces/iuser-service";
 import { defineComponent, onMounted, reactive } from "vue";
 import { UserDTO } from "@/models/query-responses/user-list-query-response";
 import router from "@/router";

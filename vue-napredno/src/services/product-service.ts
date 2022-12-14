@@ -1,6 +1,6 @@
 import { MostSoldProductsQueryResponse } from "./../models/query-responses/most-sold-products-query-response";
 import { injectable } from "inversify";
-import { IProductService } from "../interfaces/productService";
+import { IProductService } from "../interfaces/iproduct-service";
 import { ProductQueryResponse } from "../models/query-responses/product-query-response";
 import httpClient from "@/clients/httpClient";
 import { ProductListQueryResponse } from "@/models/query-responses/product-list-query-response";

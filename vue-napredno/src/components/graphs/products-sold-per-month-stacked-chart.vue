@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import { getService, Types } from "@/di-container";
-import { IProductService } from "@/interfaces/productService";
+import { IProductService } from "@/interfaces/iproduct-service";
 import { defineComponent, onMounted, reactive } from "vue";
 
 export default defineComponent({
@@ -49,7 +49,7 @@ export default defineComponent({
           }
         }
       };
-      
+
       //state.mostSoldProductsSeries[0].data = mostSoldProductsResponse.map((x) => x.quantity);
     });
     return { state };

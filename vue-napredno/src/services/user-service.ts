@@ -4,7 +4,7 @@ import {
 } from "./../models/query-responses/user-list-query-response";
 import { UserStore } from "./../store/user-store";
 import { injectable } from "inversify";
-import { IUserService } from "../interfaces/userService";
+import { IUserService } from "../interfaces/iuser-service";
 import httpClient from "@/clients/httpClient";
 import { LoginCustomerCommand } from "@/models/commands/login-model";
 import { RegisterCustomerCommand } from "@/models/commands/register-model";

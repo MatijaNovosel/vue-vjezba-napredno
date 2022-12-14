@@ -12,7 +12,7 @@ import ProductCard from "@/components/product/product-card.vue";
 import { ProductQueryResponse } from "@/models/query-responses/product-query-response";
 import { getService, Types } from "@/di-container";
 import { computed, defineComponent, onMounted, reactive, ref } from "vue";
-import { IProductService } from "@/interfaces/productService";
+import { IProductService } from "@/interfaces/iproduct-service";
 
 export default defineComponent({
   components: { ProductCard },

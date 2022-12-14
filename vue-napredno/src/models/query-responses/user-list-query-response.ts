@@ -7,5 +7,5 @@ export interface UserDTO {
   id: string;
   userName: string;
   firstName: string;
-  familyName: number;
+  familyName: string;
 }
