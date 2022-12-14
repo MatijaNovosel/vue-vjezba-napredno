@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="productStore.drawerState" absolute temporary>
+  <v-navigation-drawer v-model="appStateStore.drawerState" absolute temporary>
     <v-divider></v-divider>
 
     <v-list>
@@ -29,13 +29,13 @@
 
 <script lang="ts">
 import RouteNames from "@/router/route-names";
-import { ProductStore } from "@/store/product-store";
+import { AppStateStore } from "@/store/app-state-store";
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   setup() {
-    const productStore = ProductStore();
-    return { productStore, RouteNames };
+    const appStateStore = AppStateStore();
+    return { appStateStore, RouteNames };
   }
 });
 </script>

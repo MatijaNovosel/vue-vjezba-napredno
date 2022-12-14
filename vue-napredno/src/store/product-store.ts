@@ -3,7 +3,6 @@ import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 
 export const ProductStore = defineStore("ProductStore", () => {
-  const drawerState = ref(false);
 
   const cart = reactive({
     items: [] as ProductQueryResponse[]
@@ -18,5 +17,5 @@ export const ProductStore = defineStore("ProductStore", () => {
     cart.items.splice(index, 1);
   }
 
-  return { drawerState, cart, addToCart, removeFromCart };
+  return { cart, addToCart, removeFromCart };
 });

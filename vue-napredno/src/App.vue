@@ -21,7 +21,7 @@
         <v-btn
           elevation="2"
           class="btn"
-          @click="productStore.drawerState = !productStore.drawerState"
+          @click="appStateStore.drawerState = !appStateStore.drawerState"
         >
           Menu
         </v-btn>
@@ -42,18 +42,18 @@ import drawer from "./components/navigation/drawer.vue";
 import { getService, Types } from "./di-container";
 import { IUserService } from "./interfaces/iuser-service";
 import RouteNames from "./router/route-names";
-import { ProductStore } from "./store/product-store";
+import { AppStateStore } from "./store/app-state-store";
 import { UserStore } from "./store/user-store";
 
 export default defineComponent({
   name: "App",
   components: { drawer },
   setup() {
-    const productStore = ProductStore();
     const userStore = UserStore();
+    const appStateStore = AppStateStore();
     const userService = getService<IUserService>(Types.UserService);
 
-    return { productStore, userService, userStore, RouteNames };
+    return { appStateStore, userService, userStore, RouteNames };
   }
 });
 </script>
