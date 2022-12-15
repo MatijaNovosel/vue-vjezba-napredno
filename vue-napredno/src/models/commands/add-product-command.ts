@@ -1,4 +1,5 @@
-export interface AddProductCommand {
+export interface AddEditProductCommand {
+  id?: number;
   name: string;
   categoryId: number;
   unitsInStock: number;

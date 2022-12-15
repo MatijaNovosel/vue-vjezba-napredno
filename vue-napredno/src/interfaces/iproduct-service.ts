@@ -1,3 +1,4 @@
+import { AddEditProductCommand } from './../models/commands/add-product-command';
 import { ProductsSoldPerMonthQueryResponse } from "../models/query-responses/products-sold-per-month-query-response";
 import { MostSoldProductsQueryResponse } from "@/models/query-responses/most-sold-products-query-response";
 import { ProductListQueryResponse } from "../models/query-responses/product-list-query-response";
@@ -9,4 +10,6 @@ export interface IProductService {
   getMostSoldProducts(): Promise<MostSoldProductsQueryResponse[]>;
   getProductsSoldPerMonth(): Promise<ProductsSoldPerMonthQueryResponse[]>;
   getCustomerExpenditure(): Promise<CustomerExpenditureQueryResponse[]>;
+  addProduct(product: AddEditProductCommand): Promise<boolean>;
+  editProduct(product: AddEditProductCommand): Promise<boolean>;
 }

@@ -1,8 +1,7 @@
-import { EditProductCommand } from './../models/commands/edit-product-command';
-import { AddProductCommand } from "@/models/commands/add-product-command";
 import { Dialog } from "@/models/idialog";
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
+import { ProductQueryResponse } from "@/models/query-responses/product-query-response";
 
 export const AppStateStore = defineStore("AppStateStore", () => {
   const drawerState = ref(false);
@@ -13,7 +12,7 @@ export const AppStateStore = defineStore("AppStateStore", () => {
     item: undefined
   });
 
-  function OpenAddEditDialog(isEditMode: boolean, product?: AddProductCommand | EditProductCommand) {
+  function OpenAddEditDialog(isEditMode: boolean, product?: ProductQueryResponse | undefined) {
     addEditProductDialog.showDialog = true;
     addEditProductDialog.isEditMode = isEditMode;
     addEditProductDialog.item = product ?? undefined;
@@ -25,4 +24,4 @@ export const AppStateStore = defineStore("AppStateStore", () => {
     addEditProductDialog.item = undefined;
   }
   return { drawerState, addEditProductDialog, OpenAddEditDialog, CloseAddEditDialog };
-}); 
+});

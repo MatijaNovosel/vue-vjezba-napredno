@@ -1,7 +1,6 @@
-import { EditProductCommand } from './commands/edit-product-command';
-import { AddProductCommand } from '@/models/commands/add-product-command';
+import { ProductQueryResponse } from "./query-responses/product-query-response";
 export interface Dialog {
-  showDialog: boolean,
-  isEditMode: boolean,
-  item: AddProductCommand | EditProductCommand | undefined
+  showDialog: boolean;
+  isEditMode: boolean;
+  item: ProductQueryResponse | undefined;
 }
