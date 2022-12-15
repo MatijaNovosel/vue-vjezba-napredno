@@ -11,6 +11,7 @@
           :showDialog="appStateStore.addEditProductDialog.showDialog"
           @close="appStateStore.CloseAddEditDialog"
         ></AddEditProduct>
+        <ConfirmationDialog ref="confirmationDialog" />
         <v-data-table
           class="elevation-1"
           :options.sync="state.options"
@@ -23,7 +24,7 @@
             <v-icon small class="mr-2" @click="appStateStore.OpenAddEditDialog(true, item)">
               mdi-pencil
             </v-icon>
-            <v-icon small> mdi-delete </v-icon>
+            <v-icon small @click="deleteProduct(item.id)"> mdi-delete </v-icon>
           </template></v-data-table
         >
       </v-card-text>
@@ -33,18 +34,21 @@
 <script lang="ts">
 import { getService, Types } from "@/di-container";
 import { IProductService } from "@/interfaces/iproduct-service";
-import { defineComponent, onMounted, reactive, watch } from "vue";
+import { defineComponent, onMounted, reactive, ref, watch } from "vue";
 import { ProductDTO } from "@/models/query-responses/product-list-query-response";
 import AddEditProduct from "@/components/dialogs/AddEditProduct.vue";
 import { AppStateStore } from "@/store/app-state-store";
+import ConfirmationDialog from "@/components/dialogs/ConfirmationDialog.vue";
 
 export default defineComponent({
   components: {
-    AddEditProduct
+    AddEditProduct,
+    ConfirmationDialog
   },
   setup() {
     const appStateStore = AppStateStore();
     const productService = getService<IProductService>(Types.ProductService);
+    const confirmationDialog = ref();
     const headers = [
       { text: "Name", value: "name" },
       { text: "Category", value: "categoryName" },
@@ -71,11 +75,15 @@ export default defineComponent({
       state.totalItems = data.totalItems;
     }
 
+    async function deleteProduct(productId: number) {
+      let result = await confirmationDialog.value.createConfirmDialog("Are you sure?");
+    }
+
     onMounted(async () => {
       getProductList();
     });
 
-    return { appStateStore, headers, state, getProductList };
+    return { appStateStore, headers, state, confirmationDialog, getProductList, deleteProduct };
   }
 });
 </script>
