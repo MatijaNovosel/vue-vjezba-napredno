@@ -12,4 +12,5 @@ export interface IProductService {
   getCustomerExpenditure(): Promise<CustomerExpenditureQueryResponse[]>;
   addProduct(product: AddEditProductCommand): Promise<boolean>;
   editProduct(product: AddEditProductCommand): Promise<boolean>;
+  deleteProduct(productId: number): Promise<boolean>;
 }

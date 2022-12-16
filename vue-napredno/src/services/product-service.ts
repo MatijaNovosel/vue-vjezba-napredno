@@ -14,6 +14,12 @@ export default class ProductService implements IProductService {
     const result = await httpClient.post("/Products", product);
     return result.status === 200;
   }
+
+  async deleteProduct(productId: number): Promise<boolean> {
+    const result = await httpClient.delete("/Products/" + productId, );
+    return result.status === 200;
+  }
+
   async editProduct(product: AddEditProductCommand): Promise<boolean> {
     const result = await httpClient.put("/Products", product);
     return result.status === 200;

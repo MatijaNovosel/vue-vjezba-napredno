@@ -103,13 +103,13 @@ export default defineComponent({
         unitsInStock: state.formData.unitsInStock,
         subProducts: []
       };
-      debugger;
       if (!appStateStore.addEditProductDialog.isEditMode) {
         await productService.addProduct(product);
       } else {
         product.id = state.formData.id;
         await productService.editProduct(product);
       }
+      context.emit("updateProductList")
       closeDialog()
     }
 

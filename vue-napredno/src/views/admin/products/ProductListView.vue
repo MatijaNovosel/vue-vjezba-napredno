@@ -10,6 +10,7 @@
         <AddEditProduct
           :showDialog="appStateStore.addEditProductDialog.showDialog"
           @close="appStateStore.CloseAddEditDialog"
+          @updateProductList="getProductList"
         ></AddEditProduct>
         <ConfirmationDialog ref="confirmationDialog" />
         <v-data-table
@@ -34,7 +35,7 @@
 <script lang="ts">
 import { getService, Types } from "@/di-container";
 import { IProductService } from "@/interfaces/iproduct-service";
-import { defineComponent, onMounted, reactive, ref, watch } from "vue";
+import { defineComponent, getCurrentInstance, onMounted, reactive, ref, watch } from "vue";
 import { ProductDTO } from "@/models/query-responses/product-list-query-response";
 import AddEditProduct from "@/components/dialogs/AddEditProduct.vue";
 import { AppStateStore } from "@/store/app-state-store";
@@ -76,7 +77,13 @@ export default defineComponent({
     }
 
     async function deleteProduct(productId: number) {
-      let result = await confirmationDialog.value.createConfirmDialog("Are you sure?");
+      let confirmation = await confirmationDialog.value.createConfirmDialog("Are you sure?");
+      if (confirmation) {
+        let deletionStatus = await productService.deleteProduct(productId);
+        if (deletionStatus) {
+          await getProductList();
+        }
+      }
     }
 
     onMounted(async () => {
