@@ -9,6 +9,7 @@ import StatisticsView from "@/views/admin/statistics/StatisticsView.vue";
 import RegisterView from "@/views/auth/RegisterView.vue";
 import UserListView from "@/views/admin/users/UserListView.vue";
 import ProfileView from "@/views/user/ProfileView.vue";
+import ProductDetailsView from "@/views/guest/product/ProductDetailsView.vue";
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,12 @@ const routes: RouteConfig[] = [
   { path: "/login", name: RouteNames.Login, component: LoginView },
   { path: "/register", name: RouteNames.Register, component: RegisterView },
   { path: "/products", name: RouteNames.Products, component: ProductView },
+  {
+    path: "/product-details-:id",
+    name: RouteNames.ProductDetails,
+    component: ProductDetailsView,
+    props: true
+  },
   { path: "/product-list", name: RouteNames.ProductList, component: ProductListView },
   { path: "/user-list", name: RouteNames.UserList, component: UserListView },
   { path: "/statistics", name: RouteNames.Statistics, component: StatisticsView },

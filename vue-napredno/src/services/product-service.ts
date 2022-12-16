@@ -25,6 +25,11 @@ export default class ProductService implements IProductService {
     return result.status === 200;
   }
 
+  async getProduct(productId: number): Promise<ProductQueryResponse> {
+    const result = await httpClient.get("/Products/product/" +  productId);
+    return result.data;
+  }
+  
   async getProducts(): Promise<ProductQueryResponse[]> {
     const result = await httpClient.get("/Products/true");
     return result.data;

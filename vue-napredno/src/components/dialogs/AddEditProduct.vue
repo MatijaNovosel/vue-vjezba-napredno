@@ -109,8 +109,8 @@ export default defineComponent({
         product.id = state.formData.id;
         await productService.editProduct(product);
       }
-      context.emit("updateProductList")
-      closeDialog()
+      context.emit("updateProductList");
+      closeDialog();
     }
 
     function closeDialog() {

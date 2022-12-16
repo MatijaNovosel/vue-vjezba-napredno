@@ -24,7 +24,6 @@ export default class UserService implements IUserService {
       const user = await httpClient.get("/Account/user");
       if (user.status === 200) {
         userStore.currentUser = user.data;
-        debugger;
         router.push(RouteNames.Products);
       }
     }

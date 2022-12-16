@@ -6,6 +6,7 @@ import { ProductQueryResponse } from "../models/query-responses/product-query-re
 import { CustomerExpenditureQueryResponse } from "@/models/query-responses/customer-expenditure-query";
 export interface IProductService {
   getProducts(): Promise<ProductQueryResponse[]>;
+  getProduct(productId: number): Promise<ProductQueryResponse>
   getProductList(pageNumber: number, pageSize: number): Promise<ProductListQueryResponse>;
   getMostSoldProducts(): Promise<MostSoldProductsQueryResponse[]>;
   getProductsSoldPerMonth(): Promise<ProductsSoldPerMonthQueryResponse[]>;
