@@ -12,6 +12,12 @@
           >
             Profile
           </v-btn>
+          <v-btn>
+            <v-badge left>
+              <span slot="badge">{{ productStore.uniqueItemsInCart }}</span>
+              <v-icon>mdi-cart</v-icon>
+            </v-badge>
+          </v-btn>
         </template>
 
         <template v-else>
@@ -43,6 +49,7 @@ import { getService, Types } from "./di-container";
 import { IUserService } from "./interfaces/iuser-service";
 import RouteNames from "./router/route-names";
 import { AppStateStore } from "./store/app-state-store";
+import { ProductStore } from "./store/product-store";
 import { UserStore } from "./store/user-store";
 
 export default defineComponent({
@@ -51,9 +58,10 @@ export default defineComponent({
   setup() {
     const userStore = UserStore();
     const appStateStore = AppStateStore();
+    const productStore = ProductStore();
     const userService = getService<IUserService>(Types.UserService);
 
-    return { appStateStore, userService, userStore, RouteNames };
+    return { appStateStore, userService, userStore, productStore, RouteNames };
   }
 });
 </script>

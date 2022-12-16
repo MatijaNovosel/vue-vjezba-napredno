@@ -1,11 +1,16 @@
 import { ProductQueryResponse } from "@/models/query-responses/product-query-response";
 import { defineStore } from "pinia";
-import { reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 
 export const ProductStore = defineStore("ProductStore", () => {
-
   const cart = reactive({
     items: [] as ProductQueryResponse[]
+  });
+
+  const uniqueItemsInCart = computed(() => {
+    return cart.items
+      .map((product) => product.id)
+      .filter((value, index, self) => self.indexOf(value) === index).length;
   });
 
   function addToCart(product: ProductQueryResponse) {
@@ -17,5 +22,5 @@ export const ProductStore = defineStore("ProductStore", () => {
     cart.items.splice(index, 1);
   }
 
-  return { cart, addToCart, removeFromCart };
+  return { cart, uniqueItemsInCart, addToCart, removeFromCart };
 });
