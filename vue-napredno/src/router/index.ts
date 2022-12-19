@@ -10,11 +10,13 @@ import RegisterView from "@/views/auth/RegisterView.vue";
 import UserListView from "@/views/admin/users/UserListView.vue";
 import ProfileView from "@/views/user/ProfileView.vue";
 import ProductDetailsView from "@/views/guest/product/ProductDetailsView.vue";
+import CheckoutView from "@/views/user/CheckoutView.vue";
 
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   { path: "/", redirect: "/products" },
+  { path: "/checkout", name: RouteNames.Checkout, component: CheckoutView },
   { path: "/login", name: RouteNames.Login, component: LoginView },
   { path: "/register", name: RouteNames.Register, component: RegisterView },
   { path: "/products", name: RouteNames.Products, component: ProductView },
@@ -38,7 +40,12 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const userStore = UserStore();
-  if (to.name !== RouteNames.Login && to.name !== RouteNames.Products && !userStore.isLoggedIn) {
+  if (
+    to.name !== RouteNames.Login &&
+    to.name !== RouteNames.Register &&
+    to.name !== RouteNames.Products &&
+    !userStore.isLoggedIn
+  ) {
     next({ name: RouteNames.Login });
   } else next();
 });

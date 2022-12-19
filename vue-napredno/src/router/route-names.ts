@@ -1,4 +1,5 @@
 export default class RouteNames {
+  static readonly Checkout = "checkout";
   static readonly Login = "login";
   static readonly Register = "register";
   static readonly Products = "products";

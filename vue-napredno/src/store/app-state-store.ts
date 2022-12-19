@@ -13,6 +13,7 @@ export const AppStateStore = defineStore("AppStateStore", () => {
   });
 
   const showConfirmationDialog = ref(false);
+  const showCartDialog = ref(false);
 
   function OpenAddEditDialog(isEditMode: boolean, product?: ProductQueryResponse | undefined) {
     addEditProductDialog.showDialog = true;
@@ -25,5 +26,12 @@ export const AppStateStore = defineStore("AppStateStore", () => {
     addEditProductDialog.isEditMode = false;
     addEditProductDialog.item = undefined;
   }
-  return { drawerState, addEditProductDialog, showConfirmationDialog, OpenAddEditDialog, CloseAddEditDialog };
+  return {
+    drawerState,
+    addEditProductDialog,
+    showConfirmationDialog,
+    showCartDialog,
+    OpenAddEditDialog,
+    CloseAddEditDialog
+  };
 });
