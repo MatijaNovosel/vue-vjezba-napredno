@@ -23,7 +23,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn color="primary" text @click="appStateStore.showCartDialog = false">Close</v-btn>
-          <v-btn color="primary" fill text :to="RouteNames.Checkout">Checkout</v-btn>
+          <v-btn color="primary" text @click="openCheckout">Checkout</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -42,6 +42,7 @@ import { AppStateStore } from "@/store/app-state-store";
 import { ProductStore } from "@/store/product-store";
 import { computed, defineComponent, onMounted, reactive, ref, watch } from "vue";
 import RouteNames from "@/router/route-names";
+import router from "@/router";
 
 export default defineComponent({
   setup(props, context) {
@@ -73,10 +74,16 @@ export default defineComponent({
     });
 
     function closeDialog() {
+      appStateStore.showCartDialog = false;
       context.emit("close");
     }
 
-    return { appStateStore, productStore, cartItems, RouteNames, closeDialog };
+    function openCheckout() {
+      closeDialog();
+      router.push(RouteNames.Checkout);
+    }
+
+    return { appStateStore, productStore, cartItems, RouteNames, closeDialog, openCheckout };
   }
 });
 </script>
