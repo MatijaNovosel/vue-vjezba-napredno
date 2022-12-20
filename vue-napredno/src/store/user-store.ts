@@ -1,3 +1,4 @@
+import { currentUserQuery } from "./../models/query-responses/current-user-query";
 import { UserDTO } from "./../models/query-responses/user-list-query-response";
 import { ProductQueryResponse } from "@/models/query-responses/product-query-response";
 import { defineStore } from "pinia";
@@ -9,7 +10,7 @@ export const UserStore = defineStore(
   () => {
     const isLoggedIn = ref(false);
     const token = ref("");
-    const currentUser: Ref<UserDTO | null> = ref(null);
+    const currentUser: Ref<currentUserQuery | null> = ref(null);
     return { isLoggedIn, token, currentUser };
   },
   {

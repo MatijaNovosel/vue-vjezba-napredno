@@ -1,21 +1,21 @@
+import { UserStore } from "./store/user-store";
 import Vue from "vue";
 import App from "./App.vue";
-import router from "./router";
 import VueApexCharts from "vue-apexcharts";
 import vuetify from "./plugins/vuetify";
 import { createPinia, PiniaVuePlugin } from "pinia";
+import router from "./router";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
+
 import "@/styles/global.scss";
 
 Vue.use(PiniaVuePlugin);
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
-
 Vue.use(VueApexCharts);
 Vue.component("apexchart", VueApexCharts);
-
 Vue.component("ValidationProvider", ValidationProvider);
 Vue.component("ValidationObserver", ValidationObserver);
 

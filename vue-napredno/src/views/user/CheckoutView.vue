@@ -18,6 +18,8 @@ import { IOrderService } from "@/interfaces/Iorder-service";
 import { IProductService } from "@/interfaces/iproduct-service";
 import { CreateOrderCommand, OrderDetailDto } from "@/models/commands/create-order-command";
 import { cartItem } from "@/models/icartItem";
+import router from "@/router";
+import RouteNames from "@/router/route-names";
 import { ProductStore } from "@/store/product-store";
 import { computed, defineComponent } from "vue";
 import { VBtn, VIcon } from "vuetify/lib";
@@ -67,6 +69,7 @@ export default defineComponent({
       let result = await orderService.createOrder(order);
       if (result) {
         productStore.cart.items = [];
+        router.push(RouteNames.Products);
       }
     }
 

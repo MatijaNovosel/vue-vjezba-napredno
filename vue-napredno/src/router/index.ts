@@ -1,8 +1,8 @@
-import { UserStore } from "./../store/user-store";
 import LoginView from "@/views/auth/LoginView.vue";
 import ProductView from "@/views/guest/product/ProductView.vue";
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+import { UserStore } from "./../store/user-store";
 import RouteNames from "./route-names";
 import ProductListView from "@/views/admin/products/ProductListView.vue";
 import StatisticsView from "@/views/admin/statistics/StatisticsView.vue";
