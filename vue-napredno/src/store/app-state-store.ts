@@ -6,6 +6,11 @@ import { ProductQueryResponse } from "@/models/query-responses/product-query-res
 export const AppStateStore = defineStore("AppStateStore", () => {
   const drawerState = ref(false);
 
+  const snackbar = reactive({
+    show: false,
+    message: ""
+  })
+
   const addEditProductDialog: Dialog = reactive({
     showDialog: false,
     isEditMode: false,
@@ -31,6 +36,7 @@ export const AppStateStore = defineStore("AppStateStore", () => {
     addEditProductDialog,
     showConfirmationDialog,
     showCartDialog,
+    snackbar,
     OpenAddEditDialog,
     CloseAddEditDialog
   };

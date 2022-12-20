@@ -29,7 +29,6 @@ export const ProductStore = defineStore(
   {
     persist: {
       storage: localStorage,
-      paths: ["cart"]
     }
   }
 );

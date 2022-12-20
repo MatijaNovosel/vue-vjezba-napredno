@@ -36,6 +36,16 @@
       </div>
     </v-app-bar>
     <v-main>
+      <v-snackbar
+        top
+        color="red"
+        elevation="2"
+        width="80%"
+        v-model="appStateStore.snackbar.show"
+        timeout="3000"
+      >
+        {{ appStateStore.snackbar.message }}
+      </v-snackbar>
       <drawer />
       <router-view />
     </v-main>

@@ -21,7 +21,7 @@ import { cartItem } from "@/models/icartItem";
 import router from "@/router";
 import RouteNames from "@/router/route-names";
 import { ProductStore } from "@/store/product-store";
-import { computed, defineComponent } from "vue";
+import { computed, ComputedRef, defineComponent } from "vue";
 import { VBtn, VIcon } from "vuetify/lib";
 
 export default defineComponent({
@@ -29,10 +29,16 @@ export default defineComponent({
     const productStore = ProductStore();
     const orderService = getService<IOrderService>(Types.OrderService);
 
-    const cartItems = computed(() => {
-      let uniqueItems = productStore.cart.items.filter(
-        (value, index, self) => self.indexOf(value) === index
-      );
+    const cartItems: ComputedRef<cartItem[]> = computed(() => {
+      let uniqueIds: number[] = [];
+      let uniqueItems = productStore.cart.items.filter((element) => {
+        const isDuplicate = uniqueIds.includes(element.id);
+        if (!isDuplicate) {
+          uniqueIds.push(element.id);
+          return true;
+        }
+        return false;
+      });
       let cartItems: cartItem[] = [];
       uniqueItems.forEach((product) => {
         let cartItem: cartItem = {

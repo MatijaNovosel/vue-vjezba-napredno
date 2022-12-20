@@ -50,9 +50,15 @@ export default defineComponent({
     const productService = getService<IProductService>(Types.ProductService);
 
     const cartItems = computed(() => {
-      let uniqueItems = productStore.cart.items.filter(
-        (value, index, self) => self.indexOf(value) === index
-      );
+      let uniqueIds: number[] = [];
+      let uniqueItems = productStore.cart.items.filter((element) => {
+        const isDuplicate = uniqueIds.includes(element.id);
+        if (!isDuplicate) {
+          uniqueIds.push(element.id);
+          return true;
+        }
+        return false;
+      });
       let cartItems: cartItem[] = [];
       uniqueItems.forEach((product) => {
         let cartItem: cartItem = {
