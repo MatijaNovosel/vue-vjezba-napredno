@@ -1,3 +1,5 @@
+import { SubproductDTO } from "./product-query-response";
+
 export interface ProductListQueryResponse{
   totalItems: number,
   products: ProductDTO[]
@@ -9,5 +11,5 @@ export interface ProductDTO {
   categoryName: string;
   unitsInStock: number;
   unitPrice: number;
-  subProducts: string[];
+  subProducts: SubproductDTO[];
 }

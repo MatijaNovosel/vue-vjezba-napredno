@@ -9,6 +9,8 @@ export const ProductStore = defineStore(
       items: [] as ProductQueryResponse[]
     });
 
+    const allProducts: ProductQueryResponse[] = [];
+
     const uniqueItemsInCart = computed(() => {
       return cart.items
         .map((product) => product.id)
@@ -24,11 +26,11 @@ export const ProductStore = defineStore(
       cart.items.splice(index, 1);
     }
 
-    return { cart, uniqueItemsInCart, addToCart, removeFromCart };
+    return { cart, allProducts, uniqueItemsInCart, addToCart, removeFromCart };
   },
   {
     persist: {
-      storage: localStorage,
+      storage: localStorage
     }
   }
 );

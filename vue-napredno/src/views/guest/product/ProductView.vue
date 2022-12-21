@@ -13,30 +13,31 @@ import { ProductQueryResponse } from "@/models/query-responses/product-query-res
 import { getService, Types } from "@/di-container";
 import { computed, defineComponent, onMounted, reactive, ref } from "vue";
 import { IProductService } from "@/interfaces/iproduct-service";
+import { ProductStore } from "@/store/product-store";
 
 export default defineComponent({
   components: { ProductCard },
   setup() {
     const productService = getService<IProductService>(Types.ProductService);
+    const productStore = ProductStore();
 
     const itemsPerPage = 5;
     const state = reactive({
       pagination: {
         page: 1
-      },
-      products: [] as ProductQueryResponse[]
+      }
     });
 
-    const pageNumber = computed(() => Math.ceil(state.products.length / itemsPerPage));
+    const pageNumber = computed(() => Math.ceil(productStore.allProducts.length / itemsPerPage));
     const paginatedProducts = computed(() =>
-      state.products.slice(
+      productStore.allProducts.slice(
         (state.pagination.page - 1) * itemsPerPage,
         state.pagination.page * itemsPerPage
       )
     );
 
     onMounted(async () => {
-      state.products = await productService.getProducts();
+      productStore.allProducts = await productService.getProducts();
     });
     return { state, pageNumber, paginatedProducts };
   }

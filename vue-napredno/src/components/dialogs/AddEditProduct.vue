@@ -51,6 +51,17 @@
                     outlined
                   ></v-text-field>
                 </ValidationProvider>
+                <ValidationProvider name="Price" rules="required" v-slot="{ errors }">
+                  <v-select
+                    v-model="state.formData.subProducts"
+                    :items="productStore.allProducts"
+                    item-text="name"
+                    item-value="id"
+                    outlined
+                    label="Subproducts"
+                    multiple
+                  ></v-select>
+                </ValidationProvider>
               </div>
             </v-card-text>
             <v-divider />
@@ -72,12 +83,15 @@ import { ProductCategoryEnum } from "@/enums/product-category-enum";
 import { IForm } from "@/interfaces/iform";
 import { IProductService } from "@/interfaces/iproduct-service";
 import { AddEditProductCommand } from "@/models/commands/add-product-command";
+import { ProductDTO } from "@/models/query-responses/product-list-query-response";
 import { AppStateStore } from "@/store/app-state-store";
+import { ProductStore } from "@/store/product-store";
 import { defineComponent, onMounted, reactive, ref, watch } from "vue";
 
 export default defineComponent({
   setup(props, context) {
     const appStateStore = AppStateStore();
+    const productStore = ProductStore();
     const productService = getService<IProductService>(Types.ProductService);
     const categories = Object.entries(ProductCategoryEnum)
       .filter((e) => !isNaN(e[0] as any))
@@ -90,7 +104,7 @@ export default defineComponent({
         category: 0,
         unitsInStock: 0,
         unitPrice: 0,
-        subProducts: []
+        subProducts: [] as number[]
       }
     });
     const addEditForm = ref<IForm | null>(null);
@@ -101,8 +115,9 @@ export default defineComponent({
         name: state.formData.name,
         unitPrice: state.formData.unitPrice,
         unitsInStock: state.formData.unitsInStock,
-        subProducts: []
+        subProductIds: state.formData.subProducts
       };
+      debugger;
       if (!appStateStore.addEditProductDialog.isEditMode) {
         await productService.addProduct(product);
       } else {
@@ -134,9 +149,13 @@ export default defineComponent({
           categories.find((x) => x.value === val.item?.categoryName)?.id ?? 0;
         state.formData.unitPrice = val.item?.unitPrice as number;
         state.formData.unitsInStock = val.item?.unitsInStock as number;
+        val.item?.subProducts.forEach((element) => {
+          state.formData.subProducts.push(element.id);
+        });
+        debugger;
       }
     });
-    return { appStateStore, addEditForm, state, categories, closeDialog, saveData };
+    return { appStateStore, addEditForm, state, categories, productStore, closeDialog, saveData };
   }
 });
 </script>

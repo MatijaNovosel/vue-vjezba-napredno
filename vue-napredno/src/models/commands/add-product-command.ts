@@ -4,5 +4,5 @@ export interface AddEditProductCommand {
   categoryId: number;
   unitsInStock: number;
   unitPrice: number;
-  subProducts: number[];
+  subProductIds: number[];
 }

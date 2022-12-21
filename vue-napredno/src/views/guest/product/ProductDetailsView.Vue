@@ -12,7 +12,7 @@
           <a
             >Subproducts:
             <template v-for="(subproduct, i) in state.product.subProducts" v:key="i">
-              {{ subproduct }}
+              {{ subproduct.name }}
             </template>
           </a>
         </div>
