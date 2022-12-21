@@ -8,7 +8,7 @@
     </div>
     <v-divider />
     <span>Total: {{ total }}</span>
-    <v-btn color="primary" @click="createOrder">Update</v-btn>
+    <v-btn color="primary" @click="createOrder">Order</v-btn>
   </div>
 </template>
 

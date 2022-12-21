@@ -1,14 +1,13 @@
 <template>
   <v-card min-width="400">
     <v-card-title>
-      <span class="headline font-weight-bold">Products Sold Per Month</span>
+      <span class="headline font-weight-bold">Total Income Per Month</span>
     </v-card-title>
     <v-card-text class="font-weight-light">
       <div class="d-flex justify-center pa-6">
         <apexchart
           width="500"
-          type="bar"
-          stacked
+          type="line"
           :options="state.mostSoldProductsOptions"
           :series="state.mostSoldProductsSeries"
         ></apexchart>
@@ -33,7 +32,7 @@ export default defineComponent({
       },
       mostSoldProductsSeries: [
         {
-          name: "Products sold",
+          name: "Total Income",
           data: [] as number[]
         }
       ]
@@ -41,6 +40,13 @@ export default defineComponent({
 
     onMounted(async () => {
       let mostSoldProductsResponse = await productService.getProductsSoldPerMonth();
+      let totals: number[] = [];
+      mostSoldProductsResponse.forEach((element) => {
+        let total = element.productSales
+          .map((item) => item.total)
+          .reduce((prev, next) => prev + next);
+        totals.push(total);
+      });
       state.mostSoldProductsOptions = {
         ...state.mostSoldProductsOptions,
         ...{
@@ -50,7 +56,7 @@ export default defineComponent({
         }
       };
 
-      //state.mostSoldProductsSeries[0].data = mostSoldProductsResponse.map((x) => x.quantity);
+      state.mostSoldProductsSeries[0].data = totals;
     });
     return { state };
   }
