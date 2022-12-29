@@ -1,9 +1,9 @@
-import { AddEditProductCommand } from './../models/commands/add-product-command';
-import { ProductsSoldPerMonthQueryResponse } from "../models/query-responses/products-sold-per-month-query-response";
-import { MostSoldProductsQueryResponse } from "@/models/query-responses/most-sold-products-query-response";
-import { ProductListQueryResponse } from "../models/query-responses/product-list-query-response";
-import { ProductQueryResponse } from "../models/query-responses/product-query-response";
-import { CustomerExpenditureQueryResponse } from "@/models/query-responses/customer-expenditure-query";
+import { AddEditProductCommand } from '../models/commands/addProductCommand';
+import { ProductsSoldPerMonthQueryResponse } from "../models/query-responses/productsSoldPerMonthQueryResponse";
+import { MostSoldProductsQueryResponse } from "@/models/query-responses/mostSoldProductsQueryResponse";
+import { ProductListQueryResponse } from "../models/query-responses/productListQueryResponse";
+import { ProductQueryResponse } from "../models/query-responses/productQueryResponse";
+import { CustomerExpenditureQueryResponse } from "@/models/query-responses/customerExpenditureQuery";
 export interface IProductService {
   getProducts(): Promise<ProductQueryResponse[]>;
   getProduct(productId: number): Promise<ProductQueryResponse>

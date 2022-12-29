@@ -1,10 +1,9 @@
 import { Dialog } from "@/models/idialog";
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
-import { ProductQueryResponse } from "@/models/query-responses/product-query-response";
+import { ProductQueryResponse } from "@/models/query-responses/productQueryResponse";
 
 export const AppStateStore = defineStore("AppStateStore", () => {
-  const drawerState = ref(false);
 
   const snackbar = reactive({
     show: false,
@@ -32,7 +31,6 @@ export const AppStateStore = defineStore("AppStateStore", () => {
     addEditProductDialog.item = undefined;
   }
   return {
-    drawerState,
     addEditProductDialog,
     showConfirmationDialog,
     showCartDialog,

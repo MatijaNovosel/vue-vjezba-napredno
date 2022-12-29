@@ -5,7 +5,7 @@
         <v-card-title>Shopping Cart</v-card-title>
 
         <v-card-text>
-          <div v-for="(item, i) in cartItems" v:key="i" class="d-flex flex-gap-10">
+          <div v-for="(item, i) in productStore.cartItems" v:key="i" class="d-flex flex-gap-10">
             <span>{{ item.product.name }}</span>
             <span>Quantity: {{ item.amount }}</span>
             <span>Total: {{ item.amount * item.product.unitPrice }}</span>
@@ -32,46 +32,18 @@
 
 <script lang="ts">
 import { getService, Types } from "@/di-container";
-import { ProductCategoryEnum } from "@/enums/product-category-enum";
-import { IForm } from "@/interfaces/iform";
 import { IProductService } from "@/interfaces/iproduct-service";
-import { AddEditProductCommand } from "@/models/commands/add-product-command";
-import { cartItem } from "@/models/icartItem";
-import { ProductQueryResponse } from "@/models/query-responses/product-query-response";
-import { AppStateStore } from "@/store/app-state-store";
-import { ProductStore } from "@/store/product-store";
-import { computed, defineComponent, onMounted, reactive, ref, watch } from "vue";
-import RouteNames from "@/router/route-names";
 import router from "@/router";
+import RouteNames from "@/router/routeNames";
+import { AppStateStore } from "@/store/appStateStore";
+import { ProductStore } from "@/store/productStore";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   setup(props, context) {
     const appStateStore = AppStateStore();
     const productStore = ProductStore();
     const productService = getService<IProductService>(Types.ProductService);
-
-    const cartItems = computed(() => {
-      let uniqueIds: number[] = [];
-      let uniqueItems = productStore.cart.items.filter((element) => {
-        const isDuplicate = uniqueIds.includes(element.id);
-        if (!isDuplicate) {
-          uniqueIds.push(element.id);
-          return true;
-        }
-        return false;
-      });
-      let cartItems: cartItem[] = [];
-      uniqueItems.forEach((product) => {
-        let cartItem: cartItem = {
-          product: product,
-          amount: productStore.cart.items.filter((x) => {
-            return x.id === product.id;
-          }).length
-        };
-        cartItems.push(cartItem);
-      });
-      return cartItems;
-    });
 
     function closeDialog() {
       appStateStore.showCartDialog = false;
@@ -83,7 +55,7 @@ export default defineComponent({
       router.push(RouteNames.Checkout);
     }
 
-    return { appStateStore, productStore, cartItems, RouteNames, closeDialog, openCheckout };
+    return { appStateStore, productStore, productService, RouteNames, closeDialog, openCheckout };
   }
 });
 </script>

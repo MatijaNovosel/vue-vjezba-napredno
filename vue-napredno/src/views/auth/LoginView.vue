@@ -4,64 +4,63 @@
       <v-card-title>
         <span class="headline font-weight-bold">Login</span>
       </v-card-title>
-      <ValidationObserver v-slot="{ handleSubmit }" ref="loginForm">
+      <validation-observer v-slot="{ handleSubmit }" ref="loginForm">
         <form @submit.prevent="handleSubmit(login)">
           <v-card-text class="font-weight-light">
-            <ValidationProvider name="Username" rules="required" v-slot="{ errors }">
+            <validation-provider name="Username" rules="required" v-slot="{ errors }">
               <v-text-field
                 label="Username"
                 outlined
                 v-model="state.formData.username"
                 :error-messages="errors"
-              ></v-text-field>
-            </ValidationProvider>
-            <ValidationProvider name="Password" rules="required" v-slot="{ errors }">
+              />
+            </validation-provider>
+            <validation-provider name="Password" rules="required" v-slot="{ errors }">
               <v-text-field
                 label="Password"
                 outlined
                 type="password"
                 v-model="state.formData.password"
                 :error-messages="errors"
-              ></v-text-field>
-            </ValidationProvider>
+              />
+            </validation-provider>
           </v-card-text>
           <v-card-actions>
             <v-btn class="flex-grow-1" color="primary" type="submit">Login</v-btn>
           </v-card-actions>
         </form>
-      </ValidationObserver>
+      </validation-observer>
     </v-card>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
-import { required } from "vee-validate/dist/rules";
-import { extend } from "vee-validate";
 import { getService, Types } from "@/di-container";
+import { IForm } from "@/interfaces/iform";
 import { IUserService } from "@/interfaces/iuser-service";
-import { LoginCustomerCommand } from "@/models/commands/login-model";
+import { defineComponent, reactive, ref } from "vue";
 
-extend("required", required);
+interface State {
+  formData: {
+    username: string;
+    password: string;
+  };
+}
 
 export default defineComponent({
   setup() {
     const userService = getService<IUserService>(Types.UserService);
 
-    const state = reactive({
+    const state: State = reactive({
       formData: {
         username: "",
         password: ""
       }
     });
 
-    const loginForm = ref(null);
+    const loginForm = ref<IForm | null>(null);
 
     async function login() {
-      let loginModel: LoginCustomerCommand = {
-        username: state.formData.username,
-        password: state.formData.password
-      };
-      await userService.loginUser(loginModel);
+      await userService.loginUser({ ...state.formData });
     }
 
     return { state, loginForm, login };

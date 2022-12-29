@@ -6,7 +6,7 @@
       @click:outside="closeDialog"
     >
       <v-card>
-        <ValidationObserver v-slot="{ handleSubmit }" ref="addEditForm">
+        <validation-observer v-slot="{ handleSubmit }" ref="addEditForm">
           <form @submit.prevent="handleSubmit(saveData)">
             <v-card-title
               v-if="!appStateStore.addEditProductDialog.isEditMode"
@@ -16,15 +16,15 @@
             <v-card-title v-else class="text-h5 grey lighten-2">Edit product</v-card-title>
             <v-card-text>
               <div class="pt-6">
-                <ValidationProvider name="Name" rules="required" v-slot="{ errors }">
+                <validation-provider name="Name" rules="required" v-slot="{ errors }">
                   <v-text-field
                     label="Name"
                     v-model="state.formData.name"
                     :error-messages="errors"
                     outlined
-                  ></v-text-field>
-                </ValidationProvider>
-                <ValidationProvider name="category" rules="required" v-slot="{ errors }">
+                  />
+                </validation-provider>
+                <validation-provider name="category" rules="required" v-slot="{ errors }">
                   <v-select
                     label="Category"
                     v-model="state.formData.category"
@@ -33,25 +33,25 @@
                     item-value="id"
                     :error-messages="errors"
                     outlined
-                  ></v-select>
-                </ValidationProvider>
-                <ValidationProvider name="UnitsInStock" rules="required" v-slot="{ errors }">
+                  />
+                </validation-provider>
+                <validation-provider name="UnitsInStock" rules="required" v-slot="{ errors }">
                   <v-text-field
                     label="Units in stock"
                     v-model="state.formData.unitsInStock"
                     :error-messages="errors"
                     outlined
-                  ></v-text-field>
-                </ValidationProvider>
-                <ValidationProvider name="Price" rules="required" v-slot="{ errors }">
+                  />
+                </validation-provider>
+                <validation-provider name="Price" rules="required" v-slot="{ errors }">
                   <v-text-field
                     label="Price"
                     v-model="state.formData.unitPrice"
                     :error-messages="errors"
                     outlined
-                  ></v-text-field>
-                </ValidationProvider>
-                <ValidationProvider name="Price" rules="required" v-slot="{ errors }">
+                  />
+                </validation-provider>
+                <validation-provider name="Price" rules="required" v-slot="{ errors }">
                   <v-select
                     v-model="state.formData.subProducts"
                     :items="productStore.allProducts"
@@ -60,8 +60,8 @@
                     outlined
                     label="Subproducts"
                     multiple
-                  ></v-select>
-                </ValidationProvider>
+                  />
+                </validation-provider>
               </div>
             </v-card-text>
             <v-divider />
@@ -71,7 +71,7 @@
               <v-btn color="primary" text @click="closeDialog">Cancel</v-btn>
             </v-card-actions>
           </form>
-        </ValidationObserver>
+        </validation-observer>
       </v-card>
     </v-dialog>
   </div>
@@ -79,14 +79,13 @@
 
 <script lang="ts">
 import { getService, Types } from "@/di-container";
-import { ProductCategoryEnum } from "@/enums/product-category-enum";
+import { ProductCategoryEnum } from "@/enums/productCategoryEnum";
 import { IForm } from "@/interfaces/iform";
 import { IProductService } from "@/interfaces/iproduct-service";
-import { AddEditProductCommand } from "@/models/commands/add-product-command";
-import { ProductDTO } from "@/models/query-responses/product-list-query-response";
-import { AppStateStore } from "@/store/app-state-store";
-import { ProductStore } from "@/store/product-store";
-import { defineComponent, onMounted, reactive, ref, watch } from "vue";
+import { AddEditProductCommand } from "@/models/commands/addProductCommand";
+import { AppStateStore } from "@/store/appStateStore";
+import { ProductStore } from "@/store/productStore";
+import { defineComponent, reactive, ref, watch } from "vue";
 
 export default defineComponent({
   setup(props, context) {
@@ -110,21 +109,20 @@ export default defineComponent({
     const addEditForm = ref<IForm | null>(null);
 
     async function saveData() {
-      let product: AddEditProductCommand = {
+      const product: AddEditProductCommand = {
         categoryId: state.formData.category,
         name: state.formData.name,
         unitPrice: state.formData.unitPrice,
         unitsInStock: state.formData.unitsInStock,
         subProductIds: state.formData.subProducts
       };
-      debugger;
       if (!appStateStore.addEditProductDialog.isEditMode) {
         await productService.addProduct(product);
       } else {
         product.id = state.formData.id;
         await productService.editProduct(product);
       }
-      context.emit("updateProductList");
+      context.emit("update-product-list");
       closeDialog();
     }
 
@@ -152,7 +150,6 @@ export default defineComponent({
         val.item?.subProducts.forEach((element) => {
           state.formData.subProducts.push(element.id);
         });
-        debugger;
       }
     });
     return { appStateStore, addEditForm, state, categories, productStore, closeDialog, saveData };

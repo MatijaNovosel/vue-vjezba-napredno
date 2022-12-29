@@ -1,19 +1,18 @@
 <template>
   <div class="pa-6">
     <div class="d-flex flex-shrink-1 flex-wrap justify-center flex-gap-10">
-      <ProductCard v-for="(product, p) in paginatedProducts" :key="product.id" :product="product" />
+      <product-card v-for="product in paginatedProducts" :key="product.id" :product="product" />
     </div>
     <v-pagination v-model="state.pagination.page" :length="pageNumber"></v-pagination>
   </div>
 </template>
 
 <script lang="ts">
-import ProductCard from "@/components/product/product-card.vue";
-import { ProductQueryResponse } from "@/models/query-responses/product-query-response";
+import ProductCard from "@/components/product/ProductCard.vue";
 import { getService, Types } from "@/di-container";
-import { computed, defineComponent, onMounted, reactive, ref } from "vue";
 import { IProductService } from "@/interfaces/iproduct-service";
-import { ProductStore } from "@/store/product-store";
+import { ProductStore } from "@/store/productStore";
+import { computed, defineComponent, onMounted, reactive } from "vue";
 
 export default defineComponent({
   components: { ProductCard },

@@ -1,5 +1,5 @@
-import { AppStateStore } from "./../store/app-state-store";
-import { UserStore } from "./../store/user-store";
+import { AppStateStore } from "../store/appStateStore";
+import { UserStore } from "../store/userStore";
 import axios, { AxiosError, AxiosInstance } from "axios";
 
 const httpClient: AxiosInstance = axios.create({
@@ -13,7 +13,7 @@ const httpClient: AxiosInstance = axios.create({
 httpClient.interceptors.request.use(
   (config) => {
     const userStore = UserStore();
-    let token = userStore.token;
+    const token = userStore.token;
     if (token !== "") {
       config.headers = {
         "Content-type": "application/json",
@@ -35,7 +35,6 @@ httpClient.interceptors.response.use(
     return config;
   },
   (error) => {
-    debugger;
     const appStateStore = AppStateStore();
     appStateStore.snackbar.show = true;
     appStateStore.snackbar.message = error.response?.data.Message;

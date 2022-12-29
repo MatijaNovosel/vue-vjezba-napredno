@@ -1,4 +1,4 @@
-import { SubproductDTO } from "./product-query-response";
+import { SubproductDTO } from "./productQueryResponse";
 
 export interface ProductListQueryResponse{
   totalItems: number,

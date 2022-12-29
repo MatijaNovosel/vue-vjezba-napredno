@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { AppStateStore } from "@/store/app-state-store";
+import { AppStateStore } from "@/store/appStateStore";
 import { defineComponent, provide, reactive } from "vue";
 
 export default defineComponent({

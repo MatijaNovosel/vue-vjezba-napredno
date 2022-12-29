@@ -4,7 +4,7 @@
       <v-spacer />
       <div class="d-flex flex-gap-20 justify-end">
         <template v-if="userStore.isLoggedIn">
-          <ShoppingCartDialog />
+          <shopping-cart-dialog />
           <v-btn elevation="2" class="btn" @click="userService.logoutUser"> Logout </v-btn>
           <v-btn
             elevation="2"
@@ -16,7 +16,7 @@
 
           <v-btn @click="appStateStore.showCartDialog = true">
             <v-badge left>
-              <span slot="badge">{{ productStore.uniqueItemsInCart }}</span>
+              <span slot="badge">{{ productStore.cartItems.length }}</span>
               <v-icon>mdi-cart</v-icon>
             </v-badge>
           </v-btn>
@@ -26,13 +26,7 @@
           <v-btn elevation="2" class="btn" :to="RouteNames.Login"> Log In </v-btn>
           <v-btn elevation="2" class="btn" :to="RouteNames.Register"> Register </v-btn>
         </template>
-        <v-btn
-          elevation="2"
-          class="btn"
-          @click="appStateStore.drawerState = !appStateStore.drawerState"
-        >
-          Menu
-        </v-btn>
+        <v-btn elevation="2" class="btn" @click="drawerState = !drawerState"> Menu </v-btn>
       </div>
     </v-app-bar>
     <v-main>
@@ -53,30 +47,29 @@
 </template>
 
 <script lang="ts">
-import Vue, { computed, defineComponent, reactive, ref } from "vue";
+import ShoppingCartDialog from "@/components/dialogs/ShoppingCartDialog.vue";
+import { defineComponent, ref } from "vue";
 import { RouterView } from "vue-router";
-import { VApp, VAppBar, VSpacer, VBtn, VMain } from "vuetify/lib";
-import drawer from "./components/navigation/drawer.vue";
+import Drawer from "./components/navigation/Drawer.vue";
 import { getService, Types } from "./di-container";
 import { IUserService } from "./interfaces/iuser-service";
-import { ProductListQueryResponse } from "./models/query-responses/product-list-query-response";
-import { ProductQueryResponse } from "./models/query-responses/product-query-response";
-import RouteNames from "./router/route-names";
-import { AppStateStore } from "./store/app-state-store";
-import { ProductStore } from "./store/product-store";
-import { UserStore } from "./store/user-store";
-import ShoppingCartDialog from "@/components/dialogs/ShoppingCartDialog.vue";
+import RouteNames from "./router/routeNames";
+import { AppStateStore } from "./store/appStateStore";
+import { ProductStore } from "./store/productStore";
+import { UserStore } from "./store/userStore";
 
 export default defineComponent({
   name: "App",
-  components: { drawer, ShoppingCartDialog },
+  components: { Drawer, ShoppingCartDialog },
   setup() {
     const userStore = UserStore();
     const appStateStore = AppStateStore();
     const productStore = ProductStore();
     const userService = getService<IUserService>(Types.UserService);
 
-    return { appStateStore, userService, userStore, productStore, RouteNames };
+    const drawerState = ref(false);
+
+    return { appStateStore, drawerState, userService, userStore, productStore, RouteNames };
   }
 });
 </script>

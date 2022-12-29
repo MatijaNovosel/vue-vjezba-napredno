@@ -6,15 +6,15 @@
       </v-card-title>
       <v-card-text class="font-weight-light">
         <div class="d-flex flex-column flex-gap-10">
-          <a>Category: {{ state.product.categoryName }}</a>
-          <a>Price: {{ state.product.unitPrice }}</a>
-          <a>In stock: {{ state.product.unitsInStock }}</a>
-          <a
+          <span>Category: {{ state.product.categoryName }}</span>
+          <span>Price: {{ state.product.unitPrice }}</span>
+          <span>In stock: {{ state.product.unitsInStock }}</span>
+          <span
             >Subproducts:
             <template v-for="(subproduct, i) in state.product.subProducts" v:key="i">
               {{ subproduct.name }}
             </template>
-          </a>
+          </span>
         </div>
 
         <div v-if="itemsInCart > 0" class="d-flex flex-gap-10">
@@ -25,14 +25,15 @@
             outlined
             x-small
             @click="productStore.removeFromCart(state.product)"
-            ><v-icon>mdi-minus</v-icon></v-btn
           >
+            <v-icon>mdi-minus</v-icon>
+          </v-btn>
         </div>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="primary" @click="productStore.addToCart(state.product)"
-          ><v-icon>mdi-cart</v-icon></v-btn
-        >
+        <v-btn color="primary" @click="productStore.addToCart(state.product)">
+          <v-icon>mdi-cart</v-icon>
+        </v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -41,10 +42,13 @@
 <script lang="ts">
 import { getService, Types } from "@/di-container";
 import { IProductService } from "@/interfaces/iproduct-service";
-import { ProductQueryResponse } from "@/models/query-responses/product-query-response";
-import { ProductStore } from "@/store/product-store";
+import { ProductQueryResponse } from "@/models/query-responses/productQueryResponse";
+import { ProductStore } from "@/store/productStore";
 import { computed, defineComponent, onMounted, reactive } from "vue";
 
+interface State {
+  product: ProductQueryResponse;
+}
 export default defineComponent({
   props: {
     id: {
@@ -53,8 +57,15 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const state = reactive({
-      product: {} as ProductQueryResponse
+    const state: State = reactive({
+      product: {
+        id: 0,
+        name: "",
+        categoryName: "",
+        unitsInStock: 0,
+        unitPrice: 0,
+        subProducts: []
+      }
     });
     const productService = getService<IProductService>(Types.ProductService);
 
@@ -66,9 +77,7 @@ export default defineComponent({
         }).length
     );
 
-    const total = computed(() => {
-      return itemsInCart.value * state.product.unitPrice;
-    });
+    const total = computed(() => itemsInCart.value * state.product.unitPrice);
 
     onMounted(async () => {
       state.product = await productService.getProduct(props.id);

@@ -3,9 +3,9 @@ import { IUserService } from './interfaces/iuser-service';
 import { Container } from "inversify";
 import "reflect-metadata";
 import { IProductService } from "./interfaces/iproduct-service";
-import ProductService from "./services/product-service";
-import UserService from "./services/user-service";
-import OrderService from './services/order-service';
+import ProductService from "./services/productService";
+import UserService from "./services/userService";
+import OrderService from './services/orderService';
 
 export function getService<T>(symbol: any): T {
   return DIContainer.get<T>(symbol);

@@ -7,12 +7,12 @@
         <v-btn color="primary" @click="appStateStore.OpenAddEditDialog(false)">Add</v-btn>
       </v-card-title>
       <v-card-text class="font-weight-light">
-        <AddEditProduct
+        <add-edit-product
           :showDialog="appStateStore.addEditProductDialog.showDialog"
           @close="appStateStore.CloseAddEditDialog"
-          @updateProductList="getProductList"
-        ></AddEditProduct>
-        <ConfirmationDialog ref="confirmationDialog" />
+          @update-product-list="getProductList"
+        ></add-edit-product>
+        <confirmation-dialog ref="confirmationDialog" />
         <v-data-table
           class="elevation-1"
           :options.sync="state.options"
@@ -21,7 +21,7 @@
           :server-items-length="state.totalItems"
           @pagination="getProductList"
         >
-          <template v-slot:item.actions="{ item }">
+          <template #item.actions="{ item }">
             <v-icon small class="mr-2" @click="appStateStore.OpenAddEditDialog(true, item)">
               mdi-pencil
             </v-icon>
@@ -33,13 +33,22 @@
   </div>
 </template>
 <script lang="ts">
+import AddEditProduct from "@/components/dialogs/AddEditProduct.vue";
+import ConfirmationDialog from "@/components/dialogs/ConfirmationDialog.vue";
 import { getService, Types } from "@/di-container";
 import { IProductService } from "@/interfaces/iproduct-service";
-import { defineComponent, getCurrentInstance, onMounted, reactive, ref, watch } from "vue";
-import { ProductDTO } from "@/models/query-responses/product-list-query-response";
-import AddEditProduct from "@/components/dialogs/AddEditProduct.vue";
-import { AppStateStore } from "@/store/app-state-store";
-import ConfirmationDialog from "@/components/dialogs/ConfirmationDialog.vue";
+import { ProductDTO } from "@/models/query-responses/productListQueryResponse";
+import { AppStateStore } from "@/store/appStateStore";
+import { defineComponent, onMounted, reactive, ref } from "vue";
+
+interface State {
+  options: {
+    page: number;
+    itemsPerPage: number;
+  };
+  items: ProductDTO[];
+  totalItems: number;
+}
 
 export default defineComponent({
   components: {
@@ -58,28 +67,28 @@ export default defineComponent({
       { text: "Actions", value: "actions" }
     ];
 
-    const state = reactive({
+    const state: State = reactive({
       options: {
         page: 1,
         itemsPerPage: 5
       },
-      items: [] as ProductDTO[],
+      items: [],
       totalItems: 0
     });
 
     async function getProductList() {
-      let data = await productService.getProductList(
+      const { products, totalItems } = await productService.getProductList(
         state.options.page,
         state.options.itemsPerPage
       );
-      state.items = data.products;
-      state.totalItems = data.totalItems;
+      state.items = products;
+      state.totalItems = totalItems;
     }
 
     async function deleteProduct(productId: number) {
-      let confirmation = await confirmationDialog.value.createConfirmDialog("Are you sure?");
+      const confirmation = await confirmationDialog.value.createConfirmDialog("Are you sure?");
       if (confirmation) {
-        let deletionStatus = await productService.deleteProduct(productId);
+        const deletionStatus = await productService.deleteProduct(productId);
         if (deletionStatus) {
           await getProductList();
         }
@@ -87,7 +96,7 @@ export default defineComponent({
     }
 
     onMounted(async () => {
-      getProductList();
+      await getProductList();
     });
 
     return { appStateStore, headers, state, confirmationDialog, getProductList, deleteProduct };

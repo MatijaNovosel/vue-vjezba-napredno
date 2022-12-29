@@ -4,66 +4,71 @@
       <v-card-title>
         <span class="headline font-weight-bold">Register</span>
       </v-card-title>
-      <ValidationObserver v-slot="{ handleSubmit }" ref="registerForm">
+      <validation-observer v-slot="{ handleSubmit }" ref="registerForm">
         <form @submit.prevent="handleSubmit(register)">
           <v-card-text class="font-weight-light">
-            <ValidationProvider name="Username" rules="required" v-slot="{ errors }">
+            <validation-provider name="Username" rules="required" v-slot="{ errors }">
               <v-text-field
                 label="Username"
                 outlined
                 v-model="state.formData.username"
                 :error-messages="errors"
-              ></v-text-field>
-            </ValidationProvider>
-            <ValidationProvider name="Password" rules="required" v-slot="{ errors }">
+              />
+            </validation-provider>
+            <validation-provider name="Password" rules="required" v-slot="{ errors }">
               <v-text-field
                 label="Password"
                 outlined
                 type="password"
                 v-model="state.formData.password"
                 :error-messages="errors"
-              ></v-text-field>
-            </ValidationProvider>
-            <ValidationProvider name="FirstName" rules="required" v-slot="{ errors }">
+              />
+            </validation-provider>
+            <validation-provider name="FirstName" rules="required" v-slot="{ errors }">
               <v-text-field
                 label="First Name"
                 outlined
                 v-model="state.formData.firstName"
                 :error-messages="errors"
-              ></v-text-field>
-            </ValidationProvider>
-            <ValidationProvider name="FamilyName" rules="required" v-slot="{ errors }">
+              />
+            </validation-provider>
+            <validation-provider name="FamilyName" rules="required" v-slot="{ errors }">
               <v-text-field
                 label="Family Name"
                 outlined
                 v-model="state.formData.familyName"
                 :error-messages="errors"
-              ></v-text-field>
-            </ValidationProvider>
+              />
+            </validation-provider>
           </v-card-text>
           <v-card-actions>
             <v-btn class="flex-grow-1" color="primary" type="submit">Register</v-btn>
           </v-card-actions>
         </form>
-      </ValidationObserver>
+      </validation-observer>
     </v-card>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
-import { required } from "vee-validate/dist/rules";
-import { extend } from "vee-validate";
 import { getService, Types } from "@/di-container";
+import { IForm } from "@/interfaces/iform";
 import { IUserService } from "@/interfaces/iuser-service";
-import { RegisterCustomerCommand } from "@/models/commands/register-model";
+import { defineComponent, reactive, ref } from "vue";
 
-extend("required", required);
+interface State {
+  formData: {
+    username: string;
+    password: string;
+    firstName: string;
+    familyName: string;
+  };
+}
 
 export default defineComponent({
   setup() {
     const userService = getService<IUserService>(Types.UserService);
 
-    const state = reactive({
+    const state: State = reactive({
       formData: {
         username: "",
         password: "",
@@ -72,16 +77,10 @@ export default defineComponent({
       }
     });
 
-    const registerForm = ref(null);
+    const registerForm = ref<IForm | null>(null);
 
     async function register() {
-      let registerModel: RegisterCustomerCommand = {
-        username: state.formData.username,
-        password: state.formData.password,
-        firstName: state.formData.firstName,
-        familyName: state.formData.familyName
-      };
-      await userService.registerUser(registerModel);
+      await userService.registerUser({ ...state.formData });
     }
 
     return { state, registerForm, register };

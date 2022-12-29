@@ -26,10 +26,10 @@
   </v-card>
 </template>
 <script lang="ts">
-import { ProductQueryResponse } from "@/models/query-responses/product-query-response";
-import RouteNames from "@/router/route-names";
-import { ProductStore } from "@/store/product-store";
-import { UserStore } from "@/store/user-store";
+import { ProductQueryResponse } from "@/models/query-responses/productQueryResponse";
+import RouteNames from "@/router/routeNames";
+import { ProductStore } from "@/store/productStore";
+import { UserStore } from "@/store/userStore";
 import { computed, defineComponent, PropType } from "vue";
 
 export default defineComponent({

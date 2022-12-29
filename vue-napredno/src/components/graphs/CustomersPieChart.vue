@@ -32,7 +32,7 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      let customerEqpenditureResponse = await productService.getCustomerExpenditure();
+      const customerEqpenditureResponse = await productService.getCustomerExpenditure();
 
       state.series = customerEqpenditureResponse.map((x) => x.total);
       state.options = {

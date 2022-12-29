@@ -1,4 +1,4 @@
-import { ProductQueryResponse } from "./query-responses/product-query-response";
+import { ProductQueryResponse } from "./query-responses/productQueryResponse";
 export interface Dialog {
   showDialog: boolean;
   isEditMode: boolean;

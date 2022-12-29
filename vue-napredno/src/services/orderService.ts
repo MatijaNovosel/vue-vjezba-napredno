@@ -1,7 +1,7 @@
-import { CreateOrderCommand } from "./../models/commands/create-order-command";
+import { CreateOrderCommand } from "../models/commands/createOrderCommand";
 import httpClient from "@/clients/httpClient";
 import { IOrderService } from "@/interfaces/Iorder-service";
-import { UserOrdersQueryResponse } from "@/models/query-responses/user-orders-query-response";
+import { UserOrdersQueryResponse } from "@/models/query-responses/userOrdersQueryResponse";
 import { injectable } from "inversify";
 
 @injectable()

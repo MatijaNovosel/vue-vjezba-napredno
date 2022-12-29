@@ -1,7 +1,6 @@
 <template>
   <v-navigation-drawer v-model="appStateStore.drawerState" absolute temporary>
-    <v-divider></v-divider>
-
+    <v-divider />
     <v-list>
       <v-list-item link :to="RouteNames.Products">
         <v-list-item-content>
@@ -30,11 +29,11 @@
 </template>
 
 <script lang="ts">
-import RouteNames from "@/router/route-names";
-import { AppStateStore } from "@/store/app-state-store";
-import { UserStore } from "@/store/user-store";
-import { defineComponent, ref } from "vue";
-import { PermissionPolicyEnum } from "@/enums/permission-policy-enum";
+import { PermissionPolicyEnum } from "@/enums/permissionPolicyEnum";
+import RouteNames from "@/router/routeNames";
+import { AppStateStore } from "@/store/appStateStore";
+import { UserStore } from "@/store/userStore";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   setup() {

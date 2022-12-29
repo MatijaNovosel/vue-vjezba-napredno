@@ -1,7 +1,7 @@
-import { UserDTO } from "../models/query-responses/user-list-query-response";
-import { RegisterCustomerCommand } from "../models/commands/register-model";
-import { LoginCustomerCommand } from "../models/commands/login-model";
-import { UserListQueryResponse } from "@/models/query-responses/user-list-query-response";
+import { UserDTO } from "../models/query-responses/userListQueryResponse";
+import { RegisterCustomerCommand } from "../models/commands/registerModel";
+import { LoginCustomerCommand } from "../models/commands/loginModel";
+import { UserListQueryResponse } from "@/models/query-responses/userListQueryResponse";
 export interface IUserService {
   loginUser(loginModel: LoginCustomerCommand): Promise<void>;
   registerUser(registerModel: RegisterCustomerCommand): Promise<void>;

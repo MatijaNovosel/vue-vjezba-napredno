@@ -21,11 +21,19 @@
 <script lang="ts">
 import { getService, Types } from "@/di-container";
 import { IUserService } from "@/interfaces/iuser-service";
-import { defineComponent, onMounted, reactive } from "vue";
-import { UserDTO } from "@/models/query-responses/user-list-query-response";
+import { UserDTO } from "@/models/query-responses/userListQueryResponse";
 import router from "@/router";
-import RouteNames from "@/router/route-names";
-import { VCard, VCardTitle, VCardText, VDataTable } from "vuetify/lib";
+import RouteNames from "@/router/routeNames";
+import { defineComponent, onMounted, reactive } from "vue";
+
+interface State {
+  options: {
+    page: number;
+    itemsPerPage: number;
+  };
+  items: UserDTO[];
+  totalItems: number;
+}
 
 export default defineComponent({
   setup() {
@@ -36,7 +44,7 @@ export default defineComponent({
       { text: "Family Name", value: "familyName" }
     ];
 
-    const state = reactive({
+    const state: State = reactive({
       options: {
         page: 1,
         itemsPerPage: 5
@@ -50,9 +58,12 @@ export default defineComponent({
     }
 
     async function getProductList() {
-      let data = await userService.getUsers(state.options.page, state.options.itemsPerPage);
-      state.items = data.users;
-      state.totalItems = data.totalItems;
+      const { users, totalItems } = await userService.getUsers(
+        state.options.page,
+        state.options.itemsPerPage
+      );
+      state.items = users;
+      state.totalItems = totalItems;
     }
 
     onMounted(async () => {

@@ -1,12 +1,12 @@
-import { AddEditProductCommand } from "./../models/commands/add-product-command";
-import { MostSoldProductsQueryResponse } from "./../models/query-responses/most-sold-products-query-response";
+import httpClient from "@/clients/httpClient";
+import { CustomerExpenditureQueryResponse } from "@/models/query-responses/customerExpenditureQuery";
+import { ProductListQueryResponse } from "@/models/query-responses/productListQueryResponse";
+import { ProductsSoldPerMonthQueryResponse } from "@/models/query-responses/productsSoldPerMonthQueryResponse";
 import { injectable } from "inversify";
 import { IProductService } from "../interfaces/iproduct-service";
-import { ProductQueryResponse } from "../models/query-responses/product-query-response";
-import httpClient from "@/clients/httpClient";
-import { ProductListQueryResponse } from "@/models/query-responses/product-list-query-response";
-import { ProductsSoldPerMonthQueryResponse } from "@/models/query-responses/products-sold-per-month-query-response";
-import { CustomerExpenditureQueryResponse } from "@/models/query-responses/customer-expenditure-query";
+import { ProductQueryResponse } from "../models/query-responses/productQueryResponse";
+import { AddEditProductCommand } from "../models/commands/addProductCommand";
+import { MostSoldProductsQueryResponse } from "../models/query-responses/mostSoldProductsQueryResponse";
 
 @injectable()
 export default class ProductService implements IProductService {
@@ -16,7 +16,7 @@ export default class ProductService implements IProductService {
   }
 
   async deleteProduct(productId: number): Promise<boolean> {
-    const result = await httpClient.delete("/Products/" + productId, );
+    const result = await httpClient.delete(`/Products/${productId}`);
     return result.status === 200;
   }
 
@@ -26,17 +26,17 @@ export default class ProductService implements IProductService {
   }
 
   async getProduct(productId: number): Promise<ProductQueryResponse> {
-    const result = await httpClient.get("/Products/product/" +  productId);
+    const result = await httpClient.get(`/Products/product/${productId}`);
     return result.data;
   }
-  
+
   async getProducts(): Promise<ProductQueryResponse[]> {
     const result = await httpClient.get("/Products/true");
     return result.data;
   }
 
   async getProductList(pageNumber: number, pageSize: number): Promise<ProductListQueryResponse> {
-    const result = await httpClient.get("/Products/list/" + pageNumber + "/" + pageSize);
+    const result = await httpClient.get(`/Products/list/${pageNumber}/${pageSize}`);
     return result.data;
   }
 
