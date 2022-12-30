@@ -13,7 +13,11 @@
           :server-items-length="state.totalItems"
           @pagination="getProductList"
           @click:row="openProfile"
-        ></v-data-table>
+        >
+          <template #item.actions="{ item }">
+            <v-icon small @click="openProfile"> mdi-details </v-icon>
+          </template>
+        </v-data-table>
       </v-card-text>
     </v-card>
   </div>
@@ -41,7 +45,8 @@ export default defineComponent({
     const headers = [
       { text: "Username", value: "userName" },
       { text: "First Name", value: "firstName" },
-      { text: "Family Name", value: "familyName" }
+      { text: "Family Name", value: "familyName" },
+      { text: "Actions", value: "actions" }
     ];
 
     const state: State = reactive({

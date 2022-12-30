@@ -40,7 +40,7 @@
       >
         {{ appStateStore.snackbar.message }}
       </v-snackbar>
-      <drawer />
+      <drawer :state="drawerState" @update:state="(value) => (drawerState = value)" />
       <router-view />
     </v-main>
   </v-app>
@@ -69,7 +69,14 @@ export default defineComponent({
 
     const drawerState = ref(false);
 
-    return { appStateStore, drawerState, userService, userStore, productStore, RouteNames };
+    return {
+      appStateStore,
+      drawerState,
+      userService,
+      userStore,
+      productStore,
+      RouteNames
+    };
   }
 });
 </script>
