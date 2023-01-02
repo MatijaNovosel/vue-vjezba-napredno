@@ -65,13 +65,14 @@ import { getService, Types } from "@/di-container";
 import { IForm } from "@/interfaces/iform";
 import { IOrderService } from "@/interfaces/Iorder-service";
 import { IUserService } from "@/interfaces/iuser-service";
-import { currentUserQuery } from "@/models/query-responses/currentUserQuery";
+import { LoginCustomerCommandResponse } from "@/models/command-responses/loginCustomerCommandResponse";
+import { UserDTO } from "@/models/query-responses/userListQueryResponse";
 import { UserOrdersQueryResponse } from "@/models/query-responses/userOrdersQueryResponse";
 import { UserStore } from "@/store/userStore";
 import { defineComponent, onMounted, reactive, ref } from "vue";
 
 interface State {
-  userData: currentUserQuery | null;
+  userData: LoginCustomerCommandResponse | UserDTO | null;
   formData: {
     username: string;
     firstName: string;

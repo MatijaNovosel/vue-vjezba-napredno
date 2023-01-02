@@ -1,10 +1,5 @@
 <template>
-  <v-navigation-drawer
-    v-model="openDrawer"
-    absolute
-    temporary
-    @close="$emit('update:state', false)"
-  >
+  <v-navigation-drawer :value="value" absolute temporary @input="$emit('input', $event)">
     <v-divider />
     <v-list>
       <v-list-item link :to="RouteNames.Products">
@@ -38,28 +33,16 @@ import { PermissionPolicyEnum } from "@/enums/permissionPolicyEnum";
 import RouteNames from "@/router/routeNames";
 import { AppStateStore } from "@/store/appStateStore";
 import { UserStore } from "@/store/userStore";
-import { computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  props: {
-    state: {
-      type: Boolean
-    }
-  },
-  emits: ["update:state"],
+  props: ["value"],
+  emits: ["input"],
   setup(props, { emit }) {
     const appStateStore = AppStateStore();
     const userStore = UserStore();
-    const openDrawer = computed({
-      get() {
-        return props.state;
-      },
-      set(value) {
-        emit("update:state", value);
-      }
-    });
 
-    return { props, openDrawer, appStateStore, userStore, PermissionPolicyEnum, RouteNames };
+    return { props, appStateStore, userStore, PermissionPolicyEnum, RouteNames };
   }
 });
 </script>

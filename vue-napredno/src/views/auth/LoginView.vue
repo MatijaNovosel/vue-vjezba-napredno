@@ -37,6 +37,9 @@
 import { getService, Types } from "@/di-container";
 import { IForm } from "@/interfaces/iform";
 import { IUserService } from "@/interfaces/iuser-service";
+import router from "@/router";
+import RouteNames from "@/router/routeNames";
+import { UserStore } from "@/store/userStore";
 import { defineComponent, reactive, ref } from "vue";
 
 interface State {
@@ -49,6 +52,7 @@ interface State {
 export default defineComponent({
   setup() {
     const userService = getService<IUserService>(Types.UserService);
+    const userStore = UserStore();
 
     const state: State = reactive({
       formData: {
@@ -60,7 +64,11 @@ export default defineComponent({
     const loginForm = ref<IForm | null>(null);
 
     async function login() {
-      await userService.loginUser({ ...state.formData });
+      const result = await userService.loginUser({ ...state.formData });
+      userStore.isLoggedIn = true;
+      userStore.token = result.token;
+      userStore.currentUser = result;
+      router.push(RouteNames.Products);
     }
 
     return { state, loginForm, login };

@@ -1,22 +1,19 @@
-import { currentUserQuery } from "../models/query-responses/currentUserQuery";
-import { UserDTO } from "../models/query-responses/userListQueryResponse";
-import { ProductQueryResponse } from "@/models/query-responses/productQueryResponse";
+import { LoginCustomerCommandResponse } from '@/models/command-responses/loginCustomerCommandResponse';
 import { defineStore } from "pinia";
-import { reactive, Ref, ref } from "vue";
-import { getCookie, setCookie } from "typescript-cookie";
+import { Ref, ref } from "vue";
+import { UserDTO } from "./../models/query-responses/userListQueryResponse";
 
 export const UserStore = defineStore(
   "UserStore",
   () => {
     const isLoggedIn = ref(false);
     const token = ref("");
-    const currentUser: Ref<currentUserQuery | null> = ref(null);
+    const currentUser: Ref<LoginCustomerCommandResponse | null> = ref(null);
     return { isLoggedIn, token, currentUser };
   },
   {
     persist: {
-      storage: localStorage,
-      paths: ["isLoggedIn", "token", "currentUser"]
+      storage: localStorage
     }
   }
 );

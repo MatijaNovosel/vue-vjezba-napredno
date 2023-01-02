@@ -40,7 +40,7 @@
       >
         {{ appStateStore.snackbar.message }}
       </v-snackbar>
-      <drawer :state="drawerState" @update:state="(value) => (drawerState = value)" />
+      <drawer v-model="drawerState" />
       <router-view />
     </v-main>
   </v-app>

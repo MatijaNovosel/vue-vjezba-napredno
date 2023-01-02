@@ -12,10 +12,11 @@
           :items="state.items"
           :server-items-length="state.totalItems"
           @pagination="getProductList"
-          @click:row="openProfile"
         >
           <template #item.actions="{ item }">
-            <v-icon small @click="openProfile"> mdi-details </v-icon>
+            <v-btn icon :to="{ name: RouteNames.Profile, params: { id: item.id } }">
+              <v-icon>mdi-details</v-icon>
+            </v-btn>
           </template>
         </v-data-table>
       </v-card-text>
@@ -26,7 +27,6 @@
 import { getService, Types } from "@/di-container";
 import { IUserService } from "@/interfaces/iuser-service";
 import { UserDTO } from "@/models/query-responses/userListQueryResponse";
-import router from "@/router";
 import RouteNames from "@/router/routeNames";
 import { defineComponent, onMounted, reactive } from "vue";
 
@@ -58,10 +58,6 @@ export default defineComponent({
       totalItems: 0
     });
 
-    function openProfile(user: UserDTO) {
-      router.push({ name: RouteNames.Profile, params: { id: user.id } });
-    }
-
     async function getProductList() {
       const { users, totalItems } = await userService.getUsers(
         state.options.page,
@@ -74,7 +70,7 @@ export default defineComponent({
     onMounted(async () => {
       getProductList();
     });
-    return { headers, state, getProductList, openProfile };
+    return { headers, state, RouteNames, getProductList };
   }
 });
 </script>

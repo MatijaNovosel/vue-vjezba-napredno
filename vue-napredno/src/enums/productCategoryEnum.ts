@@ -1,7 +1,7 @@
 export enum ProductCategoryEnum {
-  Hrana = 1,
-  Piće,
-  Elektronika,
-  Materijal,
-  Automoto
+  Food = 1,
+  Drink,
+  Electronics,
+  Material,
+  Automotive
 }

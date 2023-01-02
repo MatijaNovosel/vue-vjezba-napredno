@@ -1,5 +1,5 @@
 import { PermissionPolicyEnum } from "../../enums/permissionPolicyEnum";
 import { UserDTO } from "./userListQueryResponse";
-export interface currentUserQuery extends UserDTO {
+export interface CurrentUserQuery extends UserDTO {
   permissions?: PermissionPolicyEnum[];
 }

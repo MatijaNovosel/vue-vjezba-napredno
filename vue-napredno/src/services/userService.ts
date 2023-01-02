@@ -1,32 +1,19 @@
 import httpClient from "@/clients/httpClient";
+import { LoginCustomerCommandResponse } from "@/models/command-responses/loginCustomerCommandResponse";
 import { LoginCustomerCommand } from "@/models/commands/loginModel";
 import { RegisterCustomerCommand } from "@/models/commands/registerModel";
 import router from "@/router";
 import RouteNames from "@/router/routeNames";
 import { injectable } from "inversify";
 import { IUserService } from "../interfaces/iuser-service";
-import {
-  UserDTO,
-  UserListQueryResponse
-} from "../models/query-responses/userListQueryResponse";
+import { UserDTO, UserListQueryResponse } from "../models/query-responses/userListQueryResponse";
 import { UserStore } from "../store/userStore";
 
 @injectable()
 export default class UserService implements IUserService {
-  async loginUser(loginModel: LoginCustomerCommand): Promise<void> {
+  async loginUser(loginModel: LoginCustomerCommand): Promise<LoginCustomerCommandResponse> {
     const result = await httpClient.post("/Account/login", loginModel);
-
-    if (result.status === 200) {
-      const userStore = UserStore();
-      userStore.isLoggedIn = true;
-      userStore.token = result.data;
-
-      const user = await httpClient.get("/Account/current");
-      if (user.status === 200) {
-        userStore.currentUser = user.data;
-        router.push(RouteNames.Products);
-      }
-    }
+    return result.data;
   }
 
   async logoutUser(): Promise<void> {
