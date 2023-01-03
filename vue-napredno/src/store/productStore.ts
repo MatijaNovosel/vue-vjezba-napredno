@@ -13,15 +13,7 @@ export const ProductStore = defineStore(
     const allProducts: ProductQueryResponse[] = [];
 
     const cartItems: ComputedRef<cartItem[]> = computed(() => {
-      const uniqueIds: number[] = [];
-      let uniqueItems = cart.items.filter((element) => {
-        const isDuplicate = uniqueIds.includes(element.id);
-        if (!isDuplicate) {
-          uniqueIds.push(element.id);
-          return true;
-        }
-        return false;
-      });
+      let uniqueItems = [...new Map(cart.items.map((v) => [v.id, v])).values()];
       return uniqueItems.map((product) => ({
         product,
         amount: cart.items.filter((x) => x.id === product.id).length
