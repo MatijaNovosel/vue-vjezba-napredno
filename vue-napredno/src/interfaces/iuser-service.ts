@@ -1,4 +1,5 @@
 import { LoginCustomerCommandResponse } from "@/models/command-responses/loginCustomerCommandResponse";
+import { UpdateUserCommand } from "@/models/commands/updateUserCommand";
 import { UserListQueryResponse } from "@/models/query-responses/userListQueryResponse";
 import { LoginCustomerCommand } from "../models/commands/loginModel";
 import { RegisterCustomerCommand } from "../models/commands/registerModel";
@@ -9,4 +10,5 @@ export interface IUserService {
   logoutUser(): Promise<void>;
   getUsers(pageNumber: number, pageSize: number): Promise<UserListQueryResponse>;
   getUser(userId: string): Promise<UserDTO>;
+  updateUser(command: UpdateUserCommand): Promise<LoginCustomerCommandResponse>
 }

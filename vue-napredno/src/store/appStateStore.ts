@@ -1,14 +1,14 @@
 import { Dialog } from "@/models/idialog";
+import { ProductQueryResponse } from "@/models/query-responses/productQueryResponse";
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
-import { ProductQueryResponse } from "@/models/query-responses/productQueryResponse";
 
 export const AppStateStore = defineStore("AppStateStore", () => {
-
   const snackbar = reactive({
     show: false,
+    color: "red",
     message: ""
-  })
+  });
 
   const addEditProductDialog: Dialog = reactive({
     showDialog: false,

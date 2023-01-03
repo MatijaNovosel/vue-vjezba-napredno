@@ -1,3 +1,4 @@
+import { UpdateUserCommand } from './../models/commands/updateUserCommand';
 import httpClient from "@/clients/httpClient";
 import { LoginCustomerCommandResponse } from "@/models/command-responses/loginCustomerCommandResponse";
 import { LoginCustomerCommand } from "@/models/commands/loginModel";
@@ -21,7 +22,6 @@ export default class UserService implements IUserService {
     if (result.status === 200) {
       const userStore = UserStore();
       userStore.isLoggedIn = false;
-      userStore.token = "";
       userStore.currentUser = null;
       router.push(RouteNames.Login);
     }
@@ -42,6 +42,11 @@ export default class UserService implements IUserService {
 
   async getUser(userId: string): Promise<UserDTO> {
     const result = await httpClient.get(`/Account/user/${userId}`);
+    return result.data;
+  }
+
+  async updateUser(command: UpdateUserCommand): Promise<LoginCustomerCommandResponse> {
+    const result = await httpClient.put(`/Account`, command);
     return result.data;
   }
 }

@@ -12,7 +12,7 @@
               :error-messages="errors"
             />
           </validation-provider>
-          <validation-provider name="Username" rules="required" v-slot="{ errors }">
+          <validation-provider name="FirstName" rules="required" v-slot="{ errors }">
             <v-text-field
               label="First Name"
               v-model="state.formData.firstName"
@@ -20,12 +20,29 @@
               :error-messages="errors"
             />
           </validation-provider>
-          <validation-provider name="Username" rules="required" v-slot="{ errors }">
+          <validation-provider name="FamilyName" rules="required" v-slot="{ errors }">
             <v-text-field
               label="Family Name"
               v-model="state.formData.familyName"
               outlined
               :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider name="OldPassword" rules="required" v-slot="{ errors }">
+            <v-text-field
+              type="password"
+              label="Password"
+              v-model="state.formData.oldPassword"
+              outlined
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider name="NewPassword">
+            <v-text-field
+              type="password"
+              label="New Password"
+              v-model="state.formData.newPassword"
+              outlined
             />
           </validation-provider>
           <v-btn color="primary" type="submit">Update</v-btn>
@@ -68,15 +85,19 @@ import { IUserService } from "@/interfaces/iuser-service";
 import { LoginCustomerCommandResponse } from "@/models/command-responses/loginCustomerCommandResponse";
 import { UserDTO } from "@/models/query-responses/userListQueryResponse";
 import { UserOrdersQueryResponse } from "@/models/query-responses/userOrdersQueryResponse";
+import { AppStateStore } from "@/store/appStateStore";
 import { UserStore } from "@/store/userStore";
 import { defineComponent, onMounted, reactive, ref } from "vue";
 
 interface State {
   userData: LoginCustomerCommandResponse | UserDTO | null;
   formData: {
+    id: string;
     username: string;
     firstName: string;
     familyName: string;
+    oldPassword: string;
+    newPassword: string | null;
   };
   userOrders: UserOrdersQueryResponse[];
 }
@@ -89,6 +110,7 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const appStateStore = AppStateStore();
     const userStore = UserStore();
     const userService = getService<IUserService>(Types.UserService);
     const orderService = getService<IOrderService>(Types.OrderService);
@@ -97,14 +119,23 @@ export default defineComponent({
     const state: State = reactive({
       userData: props.id === userStore.currentUser?.id ? userStore.currentUser : null,
       formData: {
+        id: props.id,
         username: "",
         firstName: "",
-        familyName: ""
+        familyName: "",
+        oldPassword: "",
+        newPassword: null
       },
       userOrders: []
     });
 
-    async function updateUser() {}
+    const updateUser = async () => {
+      const result = await userService.updateUser({ ...state.formData });
+      userStore.setCurrentUser(result);
+      appStateStore.snackbar.color = "green";
+      appStateStore.snackbar.show = true;
+      appStateStore.snackbar.message = "Succesfully updated!";
+    };
 
     onMounted(async () => {
       if (state.userData === null) {

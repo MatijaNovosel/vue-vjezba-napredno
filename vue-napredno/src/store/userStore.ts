@@ -7,9 +7,14 @@ export const UserStore = defineStore(
   "UserStore",
   () => {
     const isLoggedIn = ref(false);
-    const token = ref("");
     const currentUser: Ref<LoginCustomerCommandResponse | null> = ref(null);
-    return { isLoggedIn, token, currentUser };
+
+    const setCurrentUser = (result: LoginCustomerCommandResponse) => {
+      isLoggedIn.value = true;
+      currentUser.value = result;
+    }
+
+    return { isLoggedIn, currentUser, setCurrentUser };
   },
   {
     persist: {

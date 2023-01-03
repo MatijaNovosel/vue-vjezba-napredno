@@ -32,7 +32,7 @@
     <v-main>
       <v-snackbar
         top
-        color="red"
+        :color="appStateStore.snackbar.color"
         elevation="2"
         width="80%"
         v-model="appStateStore.snackbar.show"

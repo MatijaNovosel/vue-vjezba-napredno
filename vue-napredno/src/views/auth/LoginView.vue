@@ -65,9 +65,7 @@ export default defineComponent({
 
     async function login() {
       const result = await userService.loginUser({ ...state.formData });
-      userStore.isLoggedIn = true;
-      userStore.token = result.token;
-      userStore.currentUser = result;
+      userStore.setCurrentUser(result);
       router.push(RouteNames.Products);
     }
 
