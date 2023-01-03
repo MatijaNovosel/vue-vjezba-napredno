@@ -1,16 +1,16 @@
+import ProductListView from "@/views/admin/products/ProductListView.vue";
+import StatisticsView from "@/views/admin/statistics/StatisticsView.vue";
+import UserListView from "@/views/admin/users/UserListView.vue";
 import LoginView from "@/views/auth/LoginView.vue";
+import RegisterView from "@/views/auth/RegisterView.vue";
+import ProductDetailsView from "@/views/guest/product/ProductDetailsView.vue";
 import ProductView from "@/views/guest/product/ProductView.vue";
+import CheckoutView from "@/views/user/CheckoutView.vue";
+import ProfileView from "@/views/user/ProfileView.vue";
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import { UserStore } from "../store/userStore";
 import RouteNames from "./routeNames";
-import ProductListView from "@/views/admin/products/ProductListView.vue";
-import StatisticsView from "@/views/admin/statistics/StatisticsView.vue";
-import RegisterView from "@/views/auth/RegisterView.vue";
-import UserListView from "@/views/admin/users/UserListView.vue";
-import ProfileView from "@/views/user/ProfileView.vue";
-import ProductDetailsView from "@/views/guest/product/ProductDetailsView.vue";
-import CheckoutView from "@/views/user/CheckoutView.vue";
 
 Vue.use(VueRouter);
 
@@ -21,7 +21,7 @@ const routes: RouteConfig[] = [
   { path: "/register", name: RouteNames.Register, component: RegisterView },
   { path: "/products", name: RouteNames.Products, component: ProductView },
   {
-    path: "/product-details-:id",
+    path: "/product-details/:id",
     name: RouteNames.ProductDetails,
     component: ProductDetailsView,
     props: true
@@ -29,12 +29,11 @@ const routes: RouteConfig[] = [
   { path: "/product-list", name: RouteNames.ProductList, component: ProductListView },
   { path: "/user-list", name: RouteNames.UserList, component: UserListView },
   { path: "/statistics", name: RouteNames.Statistics, component: StatisticsView },
-  { path: "/profile-:id", name: RouteNames.Profile, component: ProfileView, props: true }
+  { path: "/profile/:id", name: RouteNames.Profile, component: ProfileView, props: true }
 ];
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
   routes
 });
 

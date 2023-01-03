@@ -3,11 +3,15 @@ import { ProductQueryResponse } from "@/models/query-responses/productQueryRespo
 import { defineStore } from "pinia";
 import { computed, ComputedRef, reactive } from "vue";
 
+interface Cart {
+  items: ProductQueryResponse[];
+}
+
 export const ProductStore = defineStore(
   "ProductStore",
   () => {
-    const cart = reactive({
-      items: [] as ProductQueryResponse[]
+    const cart: Cart = reactive({
+      items: []
     });
 
     const allProducts: ProductQueryResponse[] = [];

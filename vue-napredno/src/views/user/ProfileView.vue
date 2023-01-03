@@ -132,9 +132,7 @@ export default defineComponent({
     const updateUser = async () => {
       const result = await userService.updateUser({ ...state.formData });
       userStore.setCurrentUser(result);
-      appStateStore.snackbar.color = "green";
-      appStateStore.snackbar.show = true;
-      appStateStore.snackbar.message = "Succesfully updated!";
+      appStateStore.ShowSnackbar("green", "Succesfully updated!");
     };
 
     onMounted(async () => {

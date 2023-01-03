@@ -2,23 +2,23 @@
   <v-navigation-drawer :value="value" absolute temporary @input="$emit('input', $event)">
     <v-divider />
     <v-list>
-      <v-list-item link :to="RouteNames.Products">
+      <v-list-item link :to="{ name: RouteNames.Products }">
         <v-list-item-content>
           <v-list-item-title>Products</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <template v-if="userStore.currentUser?.permissions?.includes(PermissionPolicyEnum.Admin)">
-        <v-list-item link :to="RouteNames.ProductList">
+        <v-list-item link :to="{ name: RouteNames.ProductList }">
           <v-list-item-content>
             <v-list-item-title>Product List</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link :to="RouteNames.UserList">
+        <v-list-item link :to="{ name: RouteNames.UserList }">
           <v-list-item-content>
             <v-list-item-title>User List</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link :to="RouteNames.Statistics">
+        <v-list-item link :to="{ name: RouteNames.Statistics }">
           <v-list-item-content>
             <v-list-item-title>Statistics</v-list-item-title>
           </v-list-item-content>

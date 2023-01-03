@@ -19,22 +19,30 @@ export const AppStateStore = defineStore("AppStateStore", () => {
   const showConfirmationDialog = ref(false);
   const showCartDialog = ref(false);
 
-  function OpenAddEditDialog(isEditMode: boolean, product?: ProductQueryResponse | undefined) {
+  const OpenAddEditDialog = (isEditMode: boolean, product?: ProductQueryResponse | undefined) => {
     addEditProductDialog.showDialog = true;
     addEditProductDialog.isEditMode = isEditMode;
     addEditProductDialog.item = product ?? undefined;
-  }
+  };
 
-  function CloseAddEditDialog() {
+  const CloseAddEditDialog = () => {
     addEditProductDialog.showDialog = false;
     addEditProductDialog.isEditMode = false;
     addEditProductDialog.item = undefined;
-  }
+  };
+
+  const ShowSnackbar = (color: string, message: string) => {
+    snackbar.show = true;
+    snackbar.color = color;
+    snackbar.message = message;
+  };
+
   return {
     addEditProductDialog,
     showConfirmationDialog,
     showCartDialog,
     snackbar,
+    ShowSnackbar,
     OpenAddEditDialog,
     CloseAddEditDialog
   };

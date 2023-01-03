@@ -20,20 +20,34 @@ import { getService, Types } from "@/di-container";
 import { IProductService } from "@/interfaces/iproduct-service";
 import { defineComponent, onMounted, reactive } from "vue";
 
+interface State {
+  mostSoldProductsOptions: {
+    xaxis: {
+      categories: string[];
+    };
+  };
+  mostSoldProductsSeries: [
+    {
+      name: string;
+      data: number[];
+    }
+  ];
+}
+
 export default defineComponent({
   setup() {
     const productService = getService<IProductService>(Types.ProductService);
 
-    const state = reactive({
+    const state: State = reactive({
       mostSoldProductsOptions: {
         xaxis: {
-          categories: [] as string[]
+          categories: []
         }
       },
       mostSoldProductsSeries: [
         {
           name: "Total Income",
-          data: [] as number[]
+          data: []
         }
       ]
     });

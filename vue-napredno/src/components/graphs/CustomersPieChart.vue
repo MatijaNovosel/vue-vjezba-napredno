@@ -20,14 +20,21 @@ import { getService, Types } from "@/di-container";
 import { IProductService } from "@/interfaces/iproduct-service";
 import { defineComponent, onMounted, reactive } from "vue";
 
+interface State {
+  series: number[];
+  options: {
+    labels: string[];
+  };
+}
+
 export default defineComponent({
   setup() {
     const productService = getService<IProductService>(Types.ProductService);
 
-    const state = reactive({
-      series: [] as number[],
+    const state: State = reactive({
+      series: [],
       options: {
-        labels: [] as string[]
+        labels: []
       }
     });
 

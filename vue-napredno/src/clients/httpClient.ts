@@ -24,9 +24,7 @@ httpClient.interceptors.request.use(
   },
   (error) => {
     const appStateStore = AppStateStore();
-    appStateStore.snackbar.color = "red";
-    appStateStore.snackbar.show = true;
-    appStateStore.snackbar.message = error;
+    appStateStore.ShowSnackbar("red", error);
     return Promise.reject(error);
   }
 );
@@ -37,9 +35,7 @@ httpClient.interceptors.response.use(
   },
   (error) => {
     const appStateStore = AppStateStore();
-    appStateStore.snackbar.color = "red";
-    appStateStore.snackbar.show = true;
-    appStateStore.snackbar.message = error.response?.data.Message;
+    appStateStore.ShowSnackbar("red", error.response?.data.Message);
     return Promise.reject(error);
   }
 );

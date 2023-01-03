@@ -54,7 +54,7 @@ export default defineComponent({
         page: 1,
         itemsPerPage: 5
       },
-      items: [] as UserDTO[],
+      items: [],
       totalItems: 0
     });
 

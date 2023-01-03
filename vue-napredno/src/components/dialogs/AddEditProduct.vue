@@ -87,6 +87,17 @@ import { AppStateStore } from "@/store/appStateStore";
 import { ProductStore } from "@/store/productStore";
 import { defineComponent, reactive, ref, watch } from "vue";
 
+interface State {
+  formData: {
+    id: number;
+    name: string;
+    category: number;
+    unitsInStock: number;
+    unitPrice: number;
+    subProducts: number[];
+  };
+}
+
 export default defineComponent({
   setup(props, context) {
     const appStateStore = AppStateStore();
@@ -96,14 +107,14 @@ export default defineComponent({
       .filter((e) => !isNaN(e[0] as any))
       .map((e) => ({ value: e[1], id: parseInt(e[0]) }));
 
-    const state = reactive({
+    const state: State = reactive({
       formData: {
         id: 0,
         name: "",
         category: 0,
         unitsInStock: 0,
         unitPrice: 0,
-        subProducts: [] as number[]
+        subProducts: []
       }
     });
     const addEditForm = ref<IForm | null>(null);

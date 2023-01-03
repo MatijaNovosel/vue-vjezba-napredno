@@ -13,12 +13,15 @@
           x-small
           class="ml-auto"
           @click="productStore.removeFromCart(product)"
-          ><v-icon>mdi-minus</v-icon></v-btn
         >
+          <v-icon>mdi-minus</v-icon>
+        </v-btn>
       </div>
     </v-card-text>
     <v-card-actions class="justify-end">
-      <v-btn color="primary" :to="{ name: RouteNames.ProductDetails, params: { id: product.id }} ">Details</v-btn>
+      <v-btn color="primary" :to="{ name: RouteNames.ProductDetails, params: { id: product.id } }"
+        >Details</v-btn
+      >
       <v-btn color="primary" v-if="userStore.isLoggedIn" @click="productStore.addToCart(product)"
         ><v-icon>mdi-cart</v-icon></v-btn
       >
