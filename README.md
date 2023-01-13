@@ -13,6 +13,8 @@ Projekt je moguće gledati sa strane **gosta** koji samo gleda popis proizvoda, 
 
 Preporuča se koristiti [Axios](https://github.com/axios/axios) za pravljenje HTTP requestova. Sve se radi na `dev` branchu.
 
+Za općenite upute oko toga kako pisati Vue kod, pratiti [ovo](https://github.com/MatijaNovosel/vue-best-practice).
+
 ## ✏️ Zadaci
 
 ### 🌍 Općenito
