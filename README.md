@@ -34,6 +34,7 @@ class AuthService {
   }
 }
 ```
+- Dodati `.env` datoteku za različite radne okoline poput developmenta, UAT-a i produkcije i prilagoditi `package.json` skriptu na način da se koristi određena datoteka u ovisnosti o parametru koji je predan za okolinu
 
 ### 👤 Dio za goste/korisnike
 
