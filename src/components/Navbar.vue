@@ -1,0 +1,62 @@
+<template>
+  <div>
+    <v-app-bar color="blue" clipped left>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>
+        {{ $t("appName") }}
+      </v-toolbar-title>
+      <v-text-field
+        v-model="tasksStore.state.searchTerm"
+        placeholder="Search"
+        hide-details
+        prepend-inner-icon="mdi-magnify"
+        @input="searchTasks"
+      />
+      <v-spacer />
+      <v-select
+        max-width="50"
+        v-model="$i18n.locale"
+        label=".."
+        :items="['hr', 'en']"
+      />
+      <v-btn v-if="!isAuthenticated" text @click="logout">{{
+        $t("logout")
+      }}</v-btn>
+    </v-app-bar>
+    <v-navigation-drawer v-model="drawer">
+      <v-list dense>
+        <v-list-item v-for="(item, i) in items" :key="i" :to="item.route">
+          <template #prepend>
+            <v-icon>
+              {{ item.icon }}
+            </v-icon>
+          </template>
+          <v-list-item-title>
+            {{ item.title }}
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { useTasksStore } from "@/stores/tasks";
+import { createDebounce } from "@/utils/helpers";
+import { ref } from "vue";
+import { useUsersStore } from "../stores/users";
+import { items } from "../utils/constants";
+
+const drawer = ref(false);
+const searchText = ref("");
+const tasksStore = useTasksStore();
+const { logout, isAuthenticated } = useUsersStore(); // import the logout method from the users store
+
+const debounce = createDebounce();
+const searchTasks = () => {
+  debounce(() => {
+    tasksStore.setSearchTerm(searchText.value);
+  }, 1500);
+};
+tasksStore.state.searchTerm;
+</script>
