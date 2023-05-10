@@ -7,6 +7,7 @@ export interface IProductsResponse {
   totalQuantitySold: number;
   subProducts: string[];
 }
+
 export interface IProduct {
   id: number | 0;
   name: string;
@@ -14,6 +15,7 @@ export interface IProduct {
   unitsInStock: number;
   categoryID: number;
 }
+
 export interface IProductGroupedByCategory {
   catgoryId: number;
   categoryName: string;

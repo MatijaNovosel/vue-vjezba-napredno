@@ -13,5 +13,11 @@ export default {
   inactiveTask: "Neaktivni taskovi",
   archivedTasks: "Arhivirani Taskovi",
   noTasksMessage: "Trenutacno nema taskova",
-  appName: "EKupi"
+  appName: "EKupi",
+  Login: "Login",
+  Password: "Lozinka",
+  Register: "Registracija",
+  Email: "Email",
+  FirstName: "Ime",
+  LastName: "Prezime"
 };

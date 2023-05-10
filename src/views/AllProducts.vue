@@ -8,7 +8,7 @@
         sm="6"
         md="4"
       >
-        <product-card :product="product" />
+        <product-card class="mb-10" :product="product" />
       </v-col>
     </v-row>
     <v-pagination
@@ -17,18 +17,30 @@
       @input="loadProducts"
     />
   </v-container>
+  <v-btn
+    v-if="userStore.isLoggedIn()"
+    :to="{
+      name: ROUTE_NAMES.USER_DETAILS,
+      params: { id: 16 }
+    }"
+  >
+    <v-icon>mdi-account</v-icon>
+  </v-btn>
 </template>
 
 <script lang="ts" setup>
 import ProductCard from "@/components/ProductCard.vue";
+import { useUsersStore } from "@/stores/users";
+import { ROUTE_NAMES } from "@/utils/constants";
 import { computed, onMounted, reactive } from "vue";
 import { useProductStore } from "../stores/products";
 
+const userStore = useUsersStore();
 const store = useProductStore();
 
 const state = reactive({
   page: 1,
-  itemsPerPage: 3
+  itemsPerPage: 5
 });
 
 const numberOfPages = computed(() => {
@@ -38,6 +50,7 @@ const numberOfPages = computed(() => {
 const paginatedProducts = computed(() => {
   const startIndex = (state.page - 1) * state.itemsPerPage;
   const endIndex = startIndex + state.itemsPerPage;
+  console.log(store.state.products);
   return store.state.products.slice(startIndex, endIndex);
 });
 

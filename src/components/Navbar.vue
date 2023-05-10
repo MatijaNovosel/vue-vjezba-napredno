@@ -19,9 +19,16 @@
         label=".."
         :items="['hr', 'en']"
       />
-      <v-btn v-if="!isAuthenticated" text @click="logout">{{
-        $t("logout")
-      }}</v-btn>
+
+      <v-btn v-if="isLoggedIn()" text @click="logout">
+        {{ $t("logout") }}
+      </v-btn>
+      <v-btn
+        v-if="isLoggedIn() && totalInCart() > 0"
+        :to="{ name: ROUTE_NAMES.CART }"
+      >
+        <v-icon> mdi-cart-outline </v-icon>
+      </v-btn>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer">
       <v-list dense>
@@ -35,28 +42,40 @@
             {{ item.title }}
           </v-list-item-title>
         </v-list-item>
+        <v-divider></v-divider>
+        <!-- <v-btn v-if="isLoggedIn()" text @click="goToProfile">
+          {{ $t("myProfile") }}
+        </v-btn> -->
       </v-list>
     </v-navigation-drawer>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useOrderStore } from "@/stores/orders";
 import { useTasksStore } from "@/stores/tasks";
 import { createDebounce } from "@/utils/helpers";
 import { ref } from "vue";
 import { useUsersStore } from "../stores/users";
-import { items } from "../utils/constants";
+import { ROUTE_NAMES, items } from "../utils/constants";
 
 const drawer = ref(false);
 const searchText = ref("");
 const tasksStore = useTasksStore();
-const { logout, isAuthenticated } = useUsersStore(); // import the logout method from the users store
-
+const { logout, isLoggedIn, state } = useUsersStore();
+const { totalInCart } = useOrderStore();
 const debounce = createDebounce();
 const searchTasks = () => {
   debounce(() => {
     tasksStore.setSearchTerm(searchText.value);
   }, 1500);
 };
+// const goToProfile = () => {
+//   if (isLoggedIn())
+//     router.push({
+//       name: ROUTE_NAMES.USER_DETAILS,
+//       params: { id: 16 }
+//     });
+// };
 tasksStore.state.searchTerm;
 </script>

@@ -5,11 +5,11 @@ import { createApp } from "vue";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
-import { VDataTable } from "vuetify/labs/VDataTable";
 import "vuetify/styles";
 import App from "./App.vue";
 import i18n from "./i18n";
-import router from "./router/routes";
+import router from "./router/index";
+import "./validators";
 
 const pinia = createPinia();
 
@@ -19,11 +19,10 @@ const vuetify = createVuetify({
 });
 
 createApp(App)
-  .use(vuetify)
-  .component("v-data-table", VDataTable)
-  .use(router)
   .use(pinia)
+  .use(router)
   .use(i18n)
+  .use(vuetify)
   .component("vv-field", Field)
   .component("vv-form", Form)
   .mount("#app");

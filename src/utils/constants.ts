@@ -1,7 +1,5 @@
 export const items = [
-  { icon: "mdi-view-dashboard", title: "Active", route: "/active" },
-  { icon: "mdi-clock", title: "Inactive", route: "/inactive" },
-  { icon: "mdi-archive", title: "Archived", route: "/archived" }
+  { icon: "mdi-view-dashboard", title: "All Products", route: "/allproducts" }
 ];
 export const langs = ["en", "hr"];
 export const ROUTE_NAMES = {
@@ -11,14 +9,28 @@ export const ROUTE_NAMES = {
   PRODUCTS: "allproducts",
   DETAILS: "details",
   LOGIN: "login",
-  PRODUCT_TABLE: "producttable"
+  PRODUCT_TABLE: "producttable",
+  CART: "cart",
+  CART_TABLE: "table",
+  CHECKOUT: "checkout",
+  USER_DETAILS: "userdetails"
 };
-export const API_URL = {
-  BASE_URL: "https://localhost:44365/api/Products/",
-  GET_PRODUCT: "https://localhost:44365/api/Products/",
+export const PRODUCTS_URL = {
+  BASE_URL: "https://localhost:44365/api/",
+  PRODUCTS: "https://localhost:44365/api/Products/",
   BESTSELLING_PRODUCTS: "https://localhost:44365/api/Products/bestselling",
   PRODUCTS_BY_CATEGORY:
-    "https://localhost:44365/api/Products/best-selling-by-category",
-  LOGIN: "https://localhost:44365/api/Authentication/login",
-  REGISTER: "https://localhost:44365/api/Authentication/register"
+    "https://localhost:44365/api/Products/best-selling-by-category"
 };
+
+export const USER_URL = {
+  LOGIN: "https://localhost:44365/api/Authentication/login",
+  REGISTER: "https://localhost:44365/api/Authentication/register",
+  DETAILS: "https://localhost:44365/api/Customer/details?email="
+};
+export const ORDER_URL = {
+  ORDERS: "https://localhost:44365/api/Orders",
+  USER_ORDERS: "https://localhost:44365/api/Orders/details/"
+};
+export const tokenKey = "token";
+export const userKey = "user";

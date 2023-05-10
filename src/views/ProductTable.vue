@@ -1,16 +1,15 @@
 <template>
   <v-data-table
-    :headers="headers"
+    v-model:items-per-page="itemsPerPage"
+    :headers="tableHeaders as any"
+    :items-length="totalItems"
     :items="items"
-    :server-items-length="totalItems"
     :loading="loading"
-    :items-per-page="itemsPerPage"
-    :page="page"
-    :server-data="loadData"
-    :no-data-text="noDataText"
     class="elevation-1"
-  >
-    <!-- <template v-slot:item.actions="{ item }">
+    item-value="name"
+    @update:options="loadData"
+  />
+  <!-- <template v-slot:item.actions="{ item }">
       <v-btn icon @click="editProduct(item.id)">
         <v-icon color="primary">mdi-pencil</v-icon>
       </v-btn>
@@ -18,29 +17,28 @@
         <v-icon color="error">mdi-delete</v-icon>
       </v-btn>
     </template> -->
-  </v-data-table>
 </template>
 
 <script lang="ts" setup>
-import { IProductsResponse } from "@/models/productModels";
 import { ref } from "vue";
+import { VDataTable } from "vuetify/labs/VDataTable";
 import { useProductStore } from "../stores/products";
 
 const store = useProductStore();
 
-const headers = [
-  { text: "ID", value: "id" },
-  { text: "Name", value: "name" },
-  { text: "Unit Price", value: "unitPrice" },
-  { text: "Units In Stock", value: "unitsInStock" },
-  { text: "Category Name", value: "categoryName" },
-  { text: "Total Quantity Sold", value: "totalQuantitySold" },
+const tableHeaders = [
+  { text: "ID", value: "id", sortable: false, align: "start" },
+  { text: "Name", value: "name", sortable: false },
+  { text: "Unit Price", value: "unitPrice", sortable: false },
+  { text: "Units In Stock", value: "unitsInStock", sortable: false },
+  { text: "Category Name", value: "categoryName", sortable: false },
+  { text: "Total Quantity Sold", value: "totalQuantitySold", sortable: false },
   { text: "Actions", value: "actions", sortable: false }
 ];
 
-const items = ref<IProductsResponse[]>([]);
-const totalItems = ref(0);
-const loading = ref(false);
+const items = store.state.products;
+const totalItems = ref(10);
+const loading = ref(true);
 const page = ref(1);
 const itemsPerPage = ref(10);
 const noDataText = ref("No products found");
@@ -48,17 +46,14 @@ const noDataText = ref("No products found");
 const loadData = async ({ page, itemsPerPage }: any) => {
   loading.value = true;
   const result = await store.getAllProducts(itemsPerPage, page);
-  items.value = result!;
-  totalItems.value = result!.length;
   loading.value = false;
 };
-console.log(totalItems);
 
 const editProduct = (id: number) => {
   // Implement your logic for editing a product here
 };
 
 const deleteProduct = (id: number) => {
-  // Implement your logic for deleting a product here
+  store.deleteProduct(id.toString());
 };
 </script>

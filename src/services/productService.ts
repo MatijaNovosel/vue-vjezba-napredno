@@ -4,24 +4,13 @@ import {
   IProductGroupedByCategory,
   IProductsResponse
 } from "@/models/productModels";
-import { IToken } from "@/models/userModels";
-import { API_URL } from "@/utils/constants";
-import axios, { AxiosInstance } from "axios";
+import { PRODUCTS_URL } from "@/utils/constants";
+// import axios from "axios";
+import { axios } from "../services/axios";
 
 export class ProductService implements IProductService {
-  private axiosInstance: AxiosInstance;
-
-  constructor(token: IToken) {
-    this.axiosInstance = axios.create({
-      baseURL: API_URL.BASE_URL,
-      headers: {
-        Authorization: `Bearer ${token.token}`
-      }
-    });
-  }
-
   async getProductsGroupedByCategory(): Promise<IProductGroupedByCategory[]> {
-    const result = await this.axiosInstance.get(API_URL.PRODUCTS_BY_CATEGORY);
+    const result = await axios.get(PRODUCTS_URL.PRODUCTS_BY_CATEGORY);
     return result.data;
   }
 
@@ -29,7 +18,7 @@ export class ProductService implements IProductService {
     productId: number,
     quantity: number
   ): Promise<boolean> {
-    const result = await this.axiosInstance.get(
+    const result = await axios.get(
       "https://localhost:44365/api/Products/available?ProductId=" +
         productId +
         "&Quantity=" +
@@ -38,13 +27,13 @@ export class ProductService implements IProductService {
     return result.data;
   }
   async getBestSellingByCategoryAsync(): Promise<IProductsResponse[]> {
-    const result = await this.axiosInstance.get(API_URL.BESTSELLING_PRODUCTS);
+    const result = await axios.get(PRODUCTS_URL.BESTSELLING_PRODUCTS);
     return result.data;
   }
 
   async deleteProductAsync(id: string): Promise<void> {
     try {
-      await this.axiosInstance.get<IProductsResponse>(API_URL.BASE_URL + id);
+      await axios.get<IProductsResponse>(PRODUCTS_URL.PRODUCTS + id);
     } catch (error) {
       console.error(error);
       throw new Error(`Failed to delete products`);
@@ -53,7 +42,7 @@ export class ProductService implements IProductService {
 
   async updateProductAsync(product: IProduct): Promise<void> {
     try {
-      await this.axiosInstance.put<IProduct>(API_URL.BASE_URL, product);
+      await axios.put<IProduct>(PRODUCTS_URL.PRODUCTS, product);
     } catch (error) {
       console.error(error);
       throw error;
@@ -62,7 +51,7 @@ export class ProductService implements IProductService {
 
   async createProductAsync(product: IProduct): Promise<void> {
     try {
-      await this.axiosInstance.post<IProduct>(API_URL.BASE_URL, product);
+      await axios.post<IProduct>(PRODUCTS_URL.PRODUCTS, product);
     } catch (error) {
       console.error(error);
       throw error;
@@ -70,19 +59,23 @@ export class ProductService implements IProductService {
   }
 
   async getAllProductsAsync(
-    pageNumber: number,
-    pageSize: number
+    pageSize: number,
+    pageNumber: number
   ): Promise<IProductsResponse[]> {
-    const result = await this.axiosInstance.get(
-      API_URL.BASE_URL + "?pageSize=" + pageSize + "&pageNumber=" + pageNumber
+    const result = await axios.get(
+      PRODUCTS_URL.PRODUCTS +
+        "?pageSize=" +
+        pageSize +
+        "&pageNumber=" +
+        pageNumber
     );
     return result.data;
   }
 
   async getProductByIdAsync(id: string): Promise<IProductsResponse> {
     try {
-      const response = await this.axiosInstance.get<IProductsResponse>(
-        API_URL.GET_PRODUCT + id
+      const response = await axios.get<IProductsResponse>(
+        PRODUCTS_URL.PRODUCTS + id
       );
       const product = await response.data;
       return product;

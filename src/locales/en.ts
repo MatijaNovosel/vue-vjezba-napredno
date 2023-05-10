@@ -13,5 +13,11 @@ export default {
   inactiveTask: "Inactive Tasks",
   archivedTasks: "Archived Tasks",
   noTasksMessage: "No tasks currently",
-  appName: "EKupi"
+  appName: "EKupi",
+  Login: "Login",
+  Password: "Password",
+  Register: "Register",
+  Email: "Email",
+  FirstName: "First Name",
+  LastName: "Last Name"
 };
