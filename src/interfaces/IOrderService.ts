@@ -1,4 +1,4 @@
-import { ICustomerOrders, IOrder } from "@/models/orderModels";
+import { ICustomerOrders, IOrder } from "../models/orderModels";
 
 export interface IOrderService {
   createOrderAsync(newOrder: IOrder): Promise<void>;

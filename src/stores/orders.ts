@@ -1,12 +1,11 @@
-import { IOrder } from "@/models/orderModels";
-import { IProductsResponse } from "@/models/productModels";
-import { OrderService } from "@/services/orderService";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { IOrder } from "../models/orderModels";
+import { IProductsResponse } from "../models/productModels";
+import { OrderService } from "../services/orderService";
 import { CartItem, CheckoutDetails } from "./../models/cartModels";
 import { IOrderDetail } from "./../models/orderModels";
 import { IUserDetails } from "./../models/userModels";
-import { useUsersStore } from "./users";
 const CARTDETAILS_KEY = "cartDetails";
 const service = new OrderService();
 
@@ -14,7 +13,6 @@ export const useOrderStore = defineStore("orders", () => {
   const orders = ref<IOrder[]>([]);
   const cart = ref<CartItem[]>([]);
   const showCart = ref(false);
-  const userStore = useUsersStore();
 
   const createOrder = async (newOrder: IOrder) => {
     service.createOrderAsync(newOrder);
@@ -93,9 +91,8 @@ export const useOrderStore = defineStore("orders", () => {
     return JSON.parse(cartDetails);
   };
 
-  const getUserOrders = async () => {
-    const nesto = await service.getUserOrdersAsync(13);
-    return nesto;
+  const getUserOrders = async (id: number) => {
+    return await service.getUserOrdersAsync(id);
   };
 
   return {

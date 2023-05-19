@@ -1,14 +1,27 @@
-import { IProductService } from "@/interfaces/IProductService";
+import { IProductService } from "../interfaces/IProductService";
 import {
+  Category,
   IProduct,
   IProductGroupedByCategory,
-  IProductsResponse
-} from "@/models/productModels";
-import { PRODUCTS_URL } from "@/utils/constants";
-// import axios from "axios";
+  IProductsResponse,
+  ISales
+} from "../models/productModels";
 import { axios } from "../services/axios";
+import { PRODUCTS_URL } from "../utils/constants";
 
 export class ProductService implements IProductService {
+  async GetAllProductCategories(): Promise<Category[]> {
+    const categories = await axios.get(PRODUCTS_URL.ALL_CATEGORIES);
+    return categories.data;
+  }
+  async getBestsellingProductsAsync(): Promise<IProductsResponse[]> {
+    const result = await axios.get(PRODUCTS_URL.BESTSELLING_PRODUCTS);
+    return result.data as IProductsResponse[];
+  }
+  async getAllProductsAsync(): Promise<IProductsResponse[]> {
+    const result = await axios.get(PRODUCTS_URL.PRODUCTS + "all");
+    return result.data as IProductsResponse[];
+  }
   async getProductsGroupedByCategory(): Promise<IProductGroupedByCategory[]> {
     const result = await axios.get(PRODUCTS_URL.PRODUCTS_BY_CATEGORY);
     return result.data;
@@ -19,46 +32,34 @@ export class ProductService implements IProductService {
     quantity: number
   ): Promise<boolean> {
     const result = await axios.get(
-      "https://localhost:44365/api/Products/available?ProductId=" +
+      PRODUCTS_URL.PRODUCTS +
+        "available?ProductId=" +
         productId +
         "&Quantity=" +
         quantity
     );
     return result.data;
   }
-  async getBestSellingByCategoryAsync(): Promise<IProductsResponse[]> {
-    const result = await axios.get(PRODUCTS_URL.BESTSELLING_PRODUCTS);
+  async getSalesByMonth(): Promise<ISales[]> {
+    const result = await axios.get(PRODUCTS_URL.SALES);
     return result.data;
   }
 
-  async deleteProductAsync(id: string): Promise<void> {
-    try {
-      await axios.get<IProductsResponse>(PRODUCTS_URL.PRODUCTS + id);
-    } catch (error) {
-      console.error(error);
-      throw new Error(`Failed to delete products`);
-    }
+  async deleteProductAsync(id: number): Promise<void> {
+    await axios.delete<IProductsResponse>(
+      PRODUCTS_URL.PRODUCTS + id.toString()
+    );
   }
 
   async updateProductAsync(product: IProduct): Promise<void> {
-    try {
-      await axios.put<IProduct>(PRODUCTS_URL.PRODUCTS, product);
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    await axios.put<IProduct>(PRODUCTS_URL.PRODUCTS, product);
   }
 
   async createProductAsync(product: IProduct): Promise<void> {
-    try {
-      await axios.post<IProduct>(PRODUCTS_URL.PRODUCTS, product);
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    await axios.post<IProduct>(PRODUCTS_URL.PRODUCTS, product);
   }
 
-  async getAllProductsAsync(
+  async getPaginatedProductsAsync(
     pageSize: number,
     pageNumber: number
   ): Promise<IProductsResponse[]> {
@@ -73,15 +74,9 @@ export class ProductService implements IProductService {
   }
 
   async getProductByIdAsync(id: string): Promise<IProductsResponse> {
-    try {
-      const response = await axios.get<IProductsResponse>(
-        PRODUCTS_URL.PRODUCTS + id
-      );
-      const product = await response.data;
-      return product;
-    } catch (error) {
-      console.error(error);
-      throw new Error(`Failed to fetch product`);
-    }
+    const response = await axios.get<IProductsResponse>(
+      PRODUCTS_URL.PRODUCTS + id
+    );
+    return response.data;
   }
 }

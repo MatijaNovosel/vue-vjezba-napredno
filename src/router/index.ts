@@ -11,7 +11,7 @@ router.beforeEach((to, from, next) => {
   const store = useUsersStore();
 
   if (to.matched.some((record) => record.meta.isAuth)) {
-    if (store.isLoggedIn()) {
+    if (store.isLoggedIn) {
       next();
     } else {
       if (to.name !== ROUTE_NAMES.LOGIN) {

@@ -18,21 +18,16 @@
   </v-card>
 </template>
 <script lang="ts" setup>
-import { CheckoutDetails } from "@/models/cartModels";
-import router from "@/router";
-import { useOrderStore } from "@/stores/orders";
-import { ROUTE_NAMES } from "@/utils/constants";
+import { CheckoutDetails } from "../models/cartModels";
+import router from "../router";
+import { useOrderStore } from "../stores/orders";
+import { ROUTE_NAMES } from "../utils/constants";
 
-const orderStore = useOrderStore();
-
-const details: CheckoutDetails = orderStore.loadCartDetailsFromLocalStorage();
+const store = useOrderStore();
+const details: CheckoutDetails = store.loadCartDetailsFromLocalStorage();
 
 const confirmOrder = async () => {
-  try {
-    await orderStore.confirmPurchase(details.user);
-    router.push(ROUTE_NAMES.PRODUCTS);
-  } catch (error) {
-    console.log(error);
-  }
+  await store.confirmPurchase(details.user);
+  router.push(ROUTE_NAMES.PRODUCTS);
 };
 </script>

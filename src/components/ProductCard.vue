@@ -5,10 +5,10 @@
     }}</v-card-title>
     <v-card-text>Unit Price: {{ product.unitPrice }}</v-card-text>
     <v-card-text>Units in Stock: {{ product.unitsInStock }}</v-card-text>
-    <v-card-text>Category: {{ product.categoryName }}</v-card-text>
+    <v-card-text>Category: {{ product.category.name }}</v-card-text>
     <v-card-actions>
       <v-btn
-        v-if="isLoggedIn()"
+        v-if="isLoggedIn"
         :disabled="store.isItemInCart(product)"
         :color="store.isItemInCart(product) ? 'blue' : ''"
         @click.stop="addToCart(product)"

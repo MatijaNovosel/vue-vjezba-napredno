@@ -6,8 +6,6 @@
       <v-card-text class="text-center font-weight-bold" style="font-size: 24px">
         {{ store.totalInCart().toFixed(1) }}
       </v-card-text>
-
-      <v-spacer />
       <v-btn
         v-if="store.totalInCart() > 0"
         variant="tonal"
@@ -30,7 +28,7 @@ import { ROUTE_NAMES } from "../utils/constants";
 const store = useOrderStore();
 const userStore = useUsersStore();
 const goToCheckout = () => {
-  const user: IUserDetails = userStore.state.currentUser!;
+  const user = userStore.currentUser as IUserDetails;
   store.saveCartDetailsToLocalStorage({
     user: user,
     totalAmount: store.totalInCart()

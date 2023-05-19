@@ -21,4 +21,12 @@ export interface IUserDetails {
   lastName: string;
   customerID: number;
   email: string;
+  totalOrders: number;
+}
+
+export interface IEditUserDetails {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
 }

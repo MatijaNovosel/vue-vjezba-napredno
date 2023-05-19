@@ -23,8 +23,7 @@
               variant="solo"
               :text="item.quantity.toString()"
               readonly
-            >
-            </v-label>
+            />
             <v-btn size="x-small" @click.stop="incrementItemQuantity(item)">
               <v-icon> mdi-chevron-right </v-icon>
             </v-btn>

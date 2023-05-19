@@ -1,14 +1,17 @@
-import CartTableVue from "@/components/CartTable.vue";
-import { ROUTE_NAMES } from "@/utils/constants";
 import { RouteRecordRaw } from "vue-router";
-import Cart from "../components/Cart.vue";
+import CartTableVue from "../components/CartTable.vue";
+import { ROUTE_NAMES } from "../utils/constants";
 import AllProducts from "../views/AllProducts.vue";
+import AllUsers from "../views/AllUsers.vue";
+import Cart from "../views/Cart.vue";
 import Checkout from "../views/Checkout.vue";
+import Graphs from "../views/Graphs.vue";
 import Login from "../views/Login.vue";
 import ProductDetails from "../views/ProductDetails.vue";
 import ProductTable from "../views/ProductTable.vue";
+import Registration from "../views/Registration.vue";
 import UserDetails from "../views/UserDetails.vue";
-
+import UserEdit from "../views/UserEdit.vue";
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
@@ -45,6 +48,11 @@ const routes: RouteRecordRaw[] = [
     component: Login
   },
   {
+    path: "/register",
+    name: ROUTE_NAMES.REGISTER,
+    component: Registration
+  },
+  {
     path: "/cart",
     name: ROUTE_NAMES.CART,
     component: Cart,
@@ -69,9 +77,33 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: "/useredit/:id",
+    name: ROUTE_NAMES.USER_EDIT,
+    component: UserEdit,
+    meta: {
+      isAuth: true
+    }
+  },
+  {
+    path: "/users",
+    name: ROUTE_NAMES.USERS,
+    component: AllUsers,
+    meta: {
+      isAuth: true
+    }
+  },
+  {
     path: "/userdetails/:id",
     name: ROUTE_NAMES.USER_DETAILS,
     component: UserDetails,
+    meta: {
+      isAuth: true
+    }
+  },
+  {
+    path: "/graphs",
+    name: ROUTE_NAMES.GRAPHS,
+    component: Graphs,
     meta: {
       isAuth: true
     }

@@ -1,6 +1,6 @@
-import router from "@/router";
 import axios from "axios";
 import { useCookies } from "vue3-cookies";
+import router from "../router";
 import { ROUTE_NAMES } from "./../utils/constants";
 const { cookies } = useCookies();
 const axiosInstance = axios.create();

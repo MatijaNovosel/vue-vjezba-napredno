@@ -1,40 +1,38 @@
-import { IProduct, IProductsResponse } from "@/models/productModels";
-import { ProductService } from "@/services/productService";
 import { defineStore } from "pinia";
-import { reactive } from "vue";
-
-const LOCAL_STORAGE_KEY = "products";
+import { ref } from "vue";
+import { Category, IProduct, IProductsResponse } from "../models/productModels";
+import { ProductService } from "../services/productService";
 
 export const useProductStore = defineStore("products", () => {
-  const state = reactive<{ products: IProductsResponse[] }>({
-    products: []
-  });
-
+  const products = ref<IProductsResponse[]>([]);
+  const categories = ref<Category[]>([]);
+  const productsLoaded = ref(false);
   const service = new ProductService();
 
-  const loadProductsFromLocalStorage = () => {
-    const products = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (products) {
-      state.products = JSON.parse(products);
+  const loadProducts = async (
+    pageSize: number,
+    pageNumber: number,
+    hardrefresh = false
+  ) => {
+    if (hardrefresh || !productsLoaded.value) {
+      productsLoaded.value = true;
+      products.value = await service.getPaginatedProductsAsync(
+        pageSize,
+        pageNumber
+      );
     }
   };
 
-  const saveProductToLocalStorage = () => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.products));
+  const getBestsellingProducts = async () => {
+    products.value = await service.getBestsellingProductsAsync();
   };
 
-  const getPaginatedProducts = async (pageSize: number, pageNumber: number) => {
-    loadProductsFromLocalStorage();
-    if (!state.products.length) {
-      state.products = await service.getAllProductsAsync(pageSize, pageNumber);
-      saveProductToLocalStorage();
-      return state.products;
-    }
+  const getSales = async () => {
+    return await service.getSalesByMonth();
   };
 
   const getProductById = async (id: string) => {
-    const product = await service.getProductByIdAsync(id);
-    return product;
+    return await service.getProductByIdAsync(id);
   };
 
   const createProduct = async (newProduct: IProduct) => {
@@ -43,23 +41,30 @@ export const useProductStore = defineStore("products", () => {
 
   const updateProduct = async (newProduct: IProduct) => {
     if (newProduct.id != 0) {
-      await service.createProductAsync(newProduct);
+      await service.updateProductAsync(newProduct);
     }
   };
 
-  const deleteProduct = async (id: string) => {
-    if (id != "0") {
+  const deleteProduct = async (id: number) => {
+    if (id != 0) {
       await service.deleteProductAsync(id);
     }
   };
+  const getAllCategories = async () => {
+    categories.value = await service.GetAllProductCategories();
+  };
 
   return {
-    state,
-    getAllProducts: getPaginatedProducts,
+    products,
+    service,
+    categories,
+    loadProducts,
     getProductById,
-    saveProductToLocalStorage,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getSales,
+    getBestsellingProducts,
+    getAllCategories
   };
 });

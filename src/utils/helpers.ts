@@ -13,3 +13,8 @@ export const createDebounce = () => {
     }, delayMs || 2000);
   };
 };
+export const getMonthName = (month: number) => {
+  const date = new Date();
+  date.setMonth(month - 1);
+  return date.toLocaleString("en-US", { month: "long" });
+};

@@ -1,5 +1,6 @@
 import "@mdi/font/css/materialdesignicons.css";
 import { createPinia } from "pinia";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import { Field, Form } from "vee-validate";
 import { createApp } from "vue";
 import { createVuetify } from "vuetify";
@@ -10,8 +11,8 @@ import App from "./App.vue";
 import i18n from "./i18n";
 import router from "./router/index";
 import "./validators";
-
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 const vuetify = createVuetify({
   components,
