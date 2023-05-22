@@ -32,12 +32,10 @@ import { ROUTE_NAMES } from "../utils/constants";
 
 const userStore = useUsersStore();
 const store = useProductStore();
-
 const state = reactive({
   page: 1,
   itemsPerPage: 5
 });
-
 const numberOfPages = computed(() => {
   return Math.ceil(store.products.length / state.itemsPerPage);
 });
@@ -61,6 +59,7 @@ const navigateToEdit = () => {
     });
   }
 };
+
 onMounted(async () => {
   await store.loadProducts(10, 1, true);
 });

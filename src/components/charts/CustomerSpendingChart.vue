@@ -6,15 +6,6 @@
 import { IUserDetails } from "@/models/userModels";
 import { useUsersStore } from "@/stores/users";
 import { chartOptions, colorArray } from "@/utils/constants";
-import {
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip
-} from "chart.js";
 import { computed, onMounted, reactive } from "vue";
 import { Bar } from "vue-chartjs";
 
@@ -29,14 +20,6 @@ const state: State = reactive({
   quantityBought: []
 });
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale
-);
 const store = useUsersStore();
 
 const chartData = computed(() => {
@@ -59,11 +42,9 @@ onMounted(async () => {
     (users) => users.firstName + " " + users.lastName
   );
   state.quantityBought = state.users.map((user) => user.totalOrders);
-
   if (state.userNames !== null) {
     chartData.value.labels = state.userNames;
   }
-
   chartData.value.datasets[0].data = state.quantityBought;
 });
 </script>

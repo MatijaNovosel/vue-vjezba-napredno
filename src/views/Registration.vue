@@ -100,7 +100,6 @@ import router from "@/router";
 import { ROUTE_NAMES } from "@/utils/constants";
 import { reactive } from "vue";
 import { useUsersStore } from "../stores/users";
-const store = useUsersStore();
 
 interface State {
   email: string;
@@ -108,6 +107,8 @@ interface State {
   firstName: string;
   lastName: string;
 }
+const store = useUsersStore();
+
 const state: State = reactive({
   email: "",
   password: "",

@@ -27,6 +27,7 @@ import { ROUTE_NAMES } from "../utils/constants";
 
 const store = useOrderStore();
 const userStore = useUsersStore();
+
 const goToCheckout = () => {
   const user = userStore.currentUser as IUserDetails;
   store.saveCartDetailsToLocalStorage({

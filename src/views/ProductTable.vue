@@ -1,26 +1,27 @@
 <template>
-  <v-data-table
-    v-model:items-per-page="itemsPerPage"
-    :headers="tableHeaders as any"
-    :items-length="state.totalItems"
-    :items="store.products"
-    :loading="state.loading"
-    :no-data-text="noDataText"
-    class="elevation-1"
-    return-object
-    multi-sort
-    item-value="name"
-    @update:options="loadData"
-  >
-    <template #item.actions="{ item }">
-      <v-btn class="mr-5" icon @click="openEditModal(item.value)">
-        <v-icon color="blue">mdi-pencil</v-icon>
-      </v-btn>
-      <v-btn icon @click="openConfirmModal(item.value)">
-        <v-icon color="error">mdi-delete</v-icon>
-      </v-btn>
-    </template>
-  </v-data-table>
+  <v-container class="mt-5 mx-auto elevation-3">
+    <v-data-table
+      v-model:items-per-page="state.itemsPerPage"
+      :headers="tableHeaders as any"
+      :items-length="state.totalItems"
+      :items="store.products"
+      :loading="state.loading"
+      :no-data-text="noDataText"
+      return-object
+      multi-sort
+      item-value="name"
+      @update:options="loadData"
+    >
+      <template #item.actions="{ item }">
+        <v-btn class="mr-5" icon @click="openEditModal(item.value)">
+          <v-icon color="blue">mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn icon @click="openConfirmModal(item.value)">
+          <v-icon color="error">mdi-delete</v-icon>
+        </v-btn>
+      </template>
+    </v-data-table>
+  </v-container>
   <product-edit-modal
     :open="state.editModal"
     @dialog-confirm="editProduct"
@@ -67,7 +68,7 @@ const tableHeaders = [
 ];
 
 const state: State = reactive({
-  itemsPerPage: 5,
+  itemsPerPage: 7,
   totalItems: 10,
   loading: false,
   page: 1,
@@ -77,7 +78,6 @@ const state: State = reactive({
   selectedProduct: null,
   editedProduct: null
 });
-const itemsPerPage = ref(5);
 const noDataText = ref("No products found");
 
 const loadData = async ({ page, itemsPerPage }: any) => {

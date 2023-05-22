@@ -7,16 +7,6 @@ import { ISales } from "@/models/productModels";
 import { useProductStore } from "@/stores/products";
 import { chartOptions } from "@/utils/constants";
 import { getMonthName } from "@/utils/helpers";
-import {
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LineElement,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip
-} from "chart.js";
 import { computed, onMounted, reactive } from "vue";
 import { Line } from "vue-chartjs";
 
@@ -31,15 +21,6 @@ const state: State = reactive({
   amountSold: []
 });
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement
-);
 const store = useProductStore();
 
 const chartData = computed(() => {
@@ -60,7 +41,6 @@ onMounted(async () => {
   state.sales = await store.getSales();
   state.amountSold = state.sales.map((sales) => sales.total);
   state.month = state.sales.map((sales) => getMonthName(sales.month));
-
   chartData.value.datasets[0].data = state.amountSold;
 });
 </script>

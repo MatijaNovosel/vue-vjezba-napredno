@@ -1,15 +1,17 @@
 <template>
-  <v-data-table
-    v-model:items-per-page="state.itemsPerPage"
-    :headers="tableHeaders"
-    :items-length="state.totalItems"
-    :items="state.items"
-    :loading="state.loading"
-    class="elevation-1"
-    return-object
-    @click:row="goToUserDetails"
-    @update:options="loadData"
-  />
+  <v-container class="mt-5 mx-auto elevation-3">
+    <v-data-table
+      v-model:items-per-page="state.itemsPerPage"
+      :headers="tableHeaders"
+      :items-length="state.totalItems"
+      :items="state.items"
+      :loading="state.loading"
+      class="elevation-1"
+      return-object
+      @click:row="goToUserDetails"
+      @update:options="loadData"
+    />
+  </v-container>
 </template>
 <script lang="ts" setup>
 import { reactive } from "vue";
@@ -18,6 +20,7 @@ import { IUserDetails } from "../models/userModels";
 import router from "../router";
 import { useUsersStore } from "../stores/users";
 import { ROUTE_NAMES } from "../utils/constants";
+
 interface State {
   itemsPerPage: number;
   totalItems: number;
@@ -26,6 +29,7 @@ interface State {
   items: IUserDetails[];
   selectedUser: IUserDetails | null;
 }
+
 const store = useUsersStore();
 const state: State = reactive({
   totalItems: 10,
@@ -35,11 +39,13 @@ const state: State = reactive({
   items: store.users,
   selectedUser: null
 });
+
 const loadData = async () => {
   state.loading = true;
   await store.getAllUsers();
   state.loading = false;
 };
+
 const goToUserDetails = (event: any, user: any) => {
   state.selectedUser = user.item.value as IUserDetails;
 

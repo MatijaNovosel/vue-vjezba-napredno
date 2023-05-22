@@ -1,4 +1,15 @@
 import "@mdi/font/css/materialdesignicons.css";
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Title,
+  Tooltip
+} from "chart.js";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import { Field, Form } from "vee-validate";
@@ -18,6 +29,17 @@ const vuetify = createVuetify({
   components,
   directives
 });
+
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  CategoryScale,
+  BarElement,
+  LinearScale,
+  PointElement
+);
 
 createApp(App)
   .use(pinia)

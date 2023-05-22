@@ -1,6 +1,6 @@
 <template>
-  <v-container class="mx-auto">
-    <v-window v-model="activeWindow" color="primary" show-arrows>
+  <v-container class="mt-5 mx-auto elevation-3">
+    <v-window v-model="activeWindow" color="primary" show-arrows reverse>
       <v-window-item value="best-selling-products">
         <BestSellingProductsChart />
       </v-window-item>
