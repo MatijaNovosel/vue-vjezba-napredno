@@ -4,21 +4,9 @@
       <v-card-title>My Profile</v-card-title>
       <v-card-text>
         <v-form ref="form" v-model="valid">
-          <v-text-field
-            v-model="user.firstName"
-            label="First Name"
-            required
-          ></v-text-field>
-          <v-text-field
-            v-model="user.lastName"
-            label="Last Name"
-            required
-          ></v-text-field>
-          <v-text-field
-            v-model="user.email"
-            label="Email"
-            required
-          ></v-text-field>
+          <v-text-field v-model="user.firstName" label="First Name" required />
+          <v-text-field v-model="user.lastName" label="Last Name" required />
+          <v-text-field v-model="user.email" label="Email" required />
         </v-form>
       </v-card-text>
       <v-btn color="green" @click="saveProfile()" :disabled="!valid"
@@ -28,14 +16,13 @@
     </v-card>
     <v-card>
       <v-card-title>My Orders</v-card-title>
-      <v-card-text> </v-card-text>
       <v-data-table
         v-model:items-per-page="totalItems"
         :headers="itemHeaders"
         class="elevation-1"
         :items="userOrders"
         :loading="loading"
-      ></v-data-table>
+      />
     </v-card>
   </div>
 </template>

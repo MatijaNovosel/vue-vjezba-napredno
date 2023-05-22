@@ -15,10 +15,10 @@ import UserEdit from "../views/UserEdit.vue";
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    redirect: "/login"
+    redirect: ROUTE_NAMES.LOGIN
   },
   {
-    path: "/producttable",
+    path: ROUTE_NAMES.PRODUCT_TABLE,
     name: ROUTE_NAMES.PRODUCT_TABLE,
     component: ProductTable,
     meta: {
@@ -26,7 +26,7 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: "/allproducts",
+    path: ROUTE_NAMES.PRODUCTS,
     name: ROUTE_NAMES.PRODUCTS,
     component: AllProducts,
     meta: {
@@ -34,7 +34,7 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: "/details/:id",
+    path: ROUTE_NAMES.DETAILS + "/:id",
     name: ROUTE_NAMES.DETAILS,
     component: ProductDetails,
     props: true,
@@ -43,17 +43,17 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: "/login",
+    path: ROUTE_NAMES.LOGIN,
     name: ROUTE_NAMES.LOGIN,
     component: Login
   },
   {
-    path: "/register",
+    path: ROUTE_NAMES.REGISTER,
     name: ROUTE_NAMES.REGISTER,
     component: Registration
   },
   {
-    path: "/cart",
+    path: ROUTE_NAMES.CART,
     name: ROUTE_NAMES.CART,
     component: Cart,
     meta: {
@@ -61,7 +61,7 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: "/table",
+    path: ROUTE_NAMES.CART_TABLE,
     name: ROUTE_NAMES.CART_TABLE,
     component: CartTableVue,
     meta: {
@@ -69,7 +69,7 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: "/checkout",
+    path: ROUTE_NAMES.CHECKOUT,
     name: ROUTE_NAMES.CHECKOUT,
     component: Checkout,
     meta: {
@@ -77,7 +77,7 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: "/useredit/:id",
+    path: ROUTE_NAMES.USER_EDIT + "/:id",
     name: ROUTE_NAMES.USER_EDIT,
     component: UserEdit,
     meta: {
@@ -85,7 +85,7 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: "/users",
+    path: ROUTE_NAMES.USERS,
     name: ROUTE_NAMES.USERS,
     component: AllUsers,
     meta: {
@@ -93,7 +93,7 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: "/userdetails/:id",
+    path: ROUTE_NAMES.USER_DETAILS + "/:id",
     name: ROUTE_NAMES.USER_DETAILS,
     component: UserDetails,
     meta: {
@@ -101,7 +101,7 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: "/graphs",
+    path: ROUTE_NAMES.GRAPHS,
     name: ROUTE_NAMES.GRAPHS,
     component: Graphs,
     meta: {

@@ -32,9 +32,9 @@
           />
         </v-form>
       </v-card-text>
-      <v-btn color="green" @click="emit('dialog-confirm', state.editedProduct)"
-        >Save</v-btn
-      >
+      <v-btn color="green" @click="emit('dialog-confirm', state.editedProduct)">
+        Save
+      </v-btn>
     </v-card>
   </v-dialog>
 </template>

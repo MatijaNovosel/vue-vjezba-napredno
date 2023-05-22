@@ -8,7 +8,7 @@
         sm="8"
         md="4"
       >
-        <product-card class="mb-10" :product="product" />
+        <product-card class="mb-5" :product="product" />
       </v-col>
     </v-row>
     <v-pagination

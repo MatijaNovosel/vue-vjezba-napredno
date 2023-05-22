@@ -18,21 +18,21 @@ export const items = [
 ];
 export const langs = ["en", "hr"];
 export const ROUTE_NAMES = {
-  ACTIVE: "active",
+  ACTIVE: "/active",
   INACTIVE: "inactive",
   ARCHIVED: "archived",
-  PRODUCTS: "allproducts",
-  DETAILS: "details",
-  LOGIN: "login",
-  REGISTER: "register",
-  PRODUCT_TABLE: "producttable",
-  CART: "cart",
-  CART_TABLE: "table",
-  CHECKOUT: "checkout",
-  USER_EDIT: "useredit",
-  USER_DETAILS: "userdetails",
-  USERS: "users",
-  GRAPHS: "graphs"
+  PRODUCTS: "/allproducts",
+  DETAILS: "/details",
+  LOGIN: "/login",
+  REGISTER: "/register",
+  PRODUCT_TABLE: "/producttable",
+  CART: "/cart",
+  CART_TABLE: "/table",
+  CHECKOUT: "/checkout",
+  USER_EDIT: "/useredit",
+  USER_DETAILS: "/userdetails",
+  USERS: "/users",
+  GRAPHS: "/graphs"
 };
 export const PRODUCTS_URL = {
   BASE_URL: "https://localhost:44365/api/",
